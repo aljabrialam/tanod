@@ -1,0 +1,14 @@
+# Private working documents (never commit)
+*HANDOFF*.md
+*handoff*.md
+
+# Environment and build
+.env
+.env.*
+node_modules/
+dist/
+.DS_Store
+
+# Starter kit from the organisers (not redistributed)
+AgentsWatchingAgents_StarterKit/
+*.zip
