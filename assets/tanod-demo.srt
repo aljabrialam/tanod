@@ -43,5 +43,14 @@ Made a mistake? Rewind to before it. And every action is in a history that can't
 Every evening, Mei gets this. What her AI did today, in words she understands.
 
 12
-00:01:57,420 --> 00:02:04,545
+00:01:57,420 --> 00:02:18,570
+One real action, end to end. Input: the agent's draft as JSON, plus the files it read. Process: label the data, check the recipient, trace every number to a file line, check scope, apply your rules. Three numbers fail. Output: blocked, with evidence, and a corrected reply that already passed the gate.
+
+13
+00:02:20,570 --> 00:02:39,620
+The logic is deliberate. A rule table: allow, approve, never. The strictest answer wins; a never rule cannot be approved away. Deterministic code decides, not a model. Every claim carries its evidence. Hash-chained history and checkpoints keep it auditable and reversible.
+
+14
+00:02:41,620 --> 00:02:48,745
 Nine scenarios caught. Zero false blocks. Tanod. Your agents draft. Tanod decides what leaves.
+

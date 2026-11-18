@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://ayea3dar.qwenwork.page/"><strong>Live app</strong></a> ·
-  <a href="assets/tanod-demo.mp4"><strong>Watch the demo (2:07)</strong></a> ·
+  <a href="assets/tanod-demo.mp4"><strong>Watch the demo (2:51)</strong></a> ·
   <a href="https://ayea3dar.qwenwork.page/#/studio"><strong>Run a rogue day</strong></a> ·
   <a href="#whats-real-and-what-isnt"><strong>What's real</strong></a>
 </p>
@@ -38,7 +38,7 @@ Entry for the **QwenWork x Hashmeta AI One-Person Company Hackathon** (Singapore
 
 [![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](assets/tanod-demo.mp4)
 
-**[assets/tanod-demo.mp4](assets/tanod-demo.mp4)** (2:07, 1920x1080, 30 fps). Cut to the twelve-scene script in the project's production guide, re-timed so each scene runs its narration plus a two-second breath and its on-screen activity plus one second: no dead air, and under the 3:00 cap. Every frame is the live app or a brand card, filmed through the browser while real clicks drive it. Narration is Kokoro-82M (voice af_heart, speed 0.95), one consistent calm voice, lines verbatim from the script; per-scene stems and the normalized full track are in [`assets/voiceover/`](assets/voiceover/) and remain music-free. A soft instrumental bed (QwenWork music generation, verified vocal-free) sits 20 dB under the voice, looped seamlessly and faded at both ends. Captions are burned into the footage and also ship as [assets/tanod-demo.srt](assets/tanod-demo.srt), timed to this cut. Honesty badges mark Live and 3x footage. Two deliberate deviations: scene 10 shows a clean-chain verify (the tamper catch is proven in the test suite), and scene 11 shows the live briefing page (the 60-second briefing video is still in production). A YouTube upload for the submission form follows once the owner's channel is available.
+**[assets/tanod-demo.mp4](assets/tanod-demo.mp4)** (2:51, 1920x1080, 30 fps). Cut to the twelve-scene script in the project's production guide plus two animated deep-dives, re-timed so each scene runs its narration plus a two-second breath and its on-screen activity plus one second: no dead air, and under the 3:00 cap. The deep-dives show one real recorded action end to end (the agent's JSON input, the checks running with their real results, the blocked output with evidence and a gate-checked corrected reply) and the guardrail logic itself (rule table, strictest-wins, non-overridable NEVER rules, deterministic decision code, evidence per claim, hash-chained history and checkpoints). Every frame is the live app, an animated explainer, or a brand card, filmed through the browser while real clicks drive it. Narration is Kokoro-82M (voice af_heart, speed 0.95), one consistent calm voice; the twelve script lines are verbatim and the two deep-dive lines are new; per-scene stems and the normalized full track are in [`assets/voiceover/`](assets/voiceover/) and remain music-free. A soft instrumental bed (QwenWork music generation, verified vocal-free) sits 20 dB under the voice, looped seamlessly and faded at both ends. Captions are burned into the footage and also ship as [assets/tanod-demo.srt](assets/tanod-demo.srt), timed to this cut. Honesty badges mark Live and 3x footage. Two deliberate deviations: scene 10 shows a clean-chain verify (the tamper catch is proven in the test suite), and scene 11 shows the live briefing page (the 60-second briefing video is still in production). A YouTube upload for the submission form follows once the owner's channel is available.
 
 ## What the demo shows, scene by scene
 
@@ -53,7 +53,9 @@ Entry for the **QwenWork x Hashmeta AI One-Person Company Hackathon** (Singapore
 9. **Clean work (1:32).** An ordinary payment reminder goes straight through. Tanod is not a brake on normal work.
 10. **Rewind + verify (1:37).** A delete released by mistake is rewound and the file returns; the history chain verifies.
 11. **Briefing (1:47).** The owner's daily page: needs you, stopped, should know, routine.
-12. **Results (1:57).** Measured numbers and a QR code to the live app.
+12. **Under the hood (1:57, animated).** One real recorded action end to end: the agent's JSON input and the files it read; the checks running with their real results (label, recipient, three failed numbers, scope, the NEVER rule that fires); the blocked output with its evidence and the gate-checked corrected reply.
+13. **Guardrail logic (2:21, animated).** The rule table (allow / waiting / never), strictest answer wins, NEVER cannot be approved away, deterministic code decides, every claim carries its evidence, hash-chained history and checkpoints make it auditable and reversible.
+14. **Results (2:41).** Measured numbers and a QR code to the live app.
 
 The Studio agents are a labelled simulation; every decision they trigger is made by the real gate and written to the real history. Three real QwenWork agents also submitted their own drafts through the same gate (see [What's real](#whats-real-and-what-isnt)).
 
@@ -223,7 +225,7 @@ S1 to S5 come from the AvePoint track starter kit (provided to participants by t
 - **Studio** (`/#/studio`): Brightledger normal day 10/10 allowed; rogue day 13 actions: 5 allowed, 3 held, 5 blocked. Lumen Studio runs the same shapes on the kit's S1–S9.
 - **Live QwenWork worker agents:** three real QwenWork agents (marketing, sales, finance) read the workspace through the API and submitted 9 of their own drafts to the live gate. The gate blocked the client-list upload and the wrong-client proposal from actual agent output. The run also exposed one false block (a correct invoice email whose due date shared a line with another date); the fact checker was fixed and the full suite re-run green the same day.
 - **Scheduled QwenWork tasks:** a daily 6pm owner-briefing task and a 30-minute queue-watch alert task, both enabled against the live API (delivery lands in the owner's IM once a channel is connected; until then, as task results).
-- **Demo film:** [assets/tanod-demo.mp4](assets/tanod-demo.mp4), 2:07 of real app footage captured through the browser, Kokoro narration, a soft instrumental bed 20 dB under the voice, burned-in captions, scene stems in [`assets/voiceover/`](assets/voiceover/). Poster exports and the social card in [`docs/brand/`](docs/brand/).
+- **Demo film:** [assets/tanod-demo.mp4](assets/tanod-demo.mp4), 2:51 of real app footage and animated explainers captured through the browser, Kokoro narration, a soft instrumental bed 20 dB under the voice, burned-in captions, scene stems in [`assets/voiceover/`](assets/voiceover/). Poster exports and the social card in [`docs/brand/`](docs/brand/).
 
 **Honest limits:**
 
@@ -245,7 +247,7 @@ Spec-driven: a short [constitution](docs/constitution.md), one spec per feature 
 - **Innovation:** an oversight gate that doesn't just say no: it rewinds the agent and offers safe options that have passed the same checks. Every number an agent states is traced to its source.
 - **Feasibility & Viability:** works for any small business, not just the demo one: upload files, write rules in plain English, point agents at the gateway. Zero runtime dependencies; one Node file plus a database.
 - **Use of QwenWork:** the app is built and deployed in QwenWork (dynamic runtime + provisioned database); three real QwenWork worker agents submitted drafts through the live gate; two QwenWork scheduled tasks run the daily briefing and queue watch; QwenWork skills drove the build, the design review and the publish workflow; the demo film was produced by a QwenWork-driven capture pipeline.
-- **Demo Presentation:** the narrated 2:07 film above, the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
+- **Demo Presentation:** the narrated 2:51 film above (including animated input-process-output and guardrail-logic deep-dives), the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
 
 ## Run it locally
 
