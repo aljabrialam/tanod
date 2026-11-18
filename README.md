@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://ayea3dar.qwenwork.page/"><strong>Live app</strong></a> ·
-  <a href="assets/tanod-demo.mp4"><strong>Watch the demo (2:24)</strong></a> ·
+  <a href="assets/tanod-demo.mp4"><strong>Watch the demo (3:00)</strong></a> ·
   <a href="https://ayea3dar.qwenwork.page/#/studio"><strong>Run a rogue day</strong></a> ·
   <a href="#whats-real-and-what-isnt"><strong>What's real</strong></a>
 </p>
@@ -25,7 +25,7 @@ Entry for the **QwenWork x Hashmeta AI One-Person Company Hackathon** (Singapore
 
 [![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](assets/tanod-demo.mp4)
 
-**[assets/tanod-demo.mp4](assets/tanod-demo.mp4)** (2:24, 1080p, narrated). Every frame is the live app, filmed through the browser while real clicks drive it: the rogue day arriving decision by decision, the approval queue, a safe-option repair, the hash-chain verify, the briefing, and the measured test suite. Captions: [assets/tanod-demo.srt](assets/tanod-demo.srt). A YouTube upload for the submission form follows once the owner's channel is available.
+**[assets/tanod-demo.mp4](assets/tanod-demo.mp4)** (3:00, 1920x1080, 30 fps). Cut to the twelve-scene script in the project's production guide: title, problem, architecture, onboarding at 3x, four catches, clean work, rewind and verify, briefing, results with a QR to the live app. Every frame is the live app or a brand card, filmed through the browser while real clicks drive it. Narration is Kokoro-82M (voice af_heart, speed 0.95), one consistent calm voice, lines verbatim from the script; per-scene stems and the normalized full track are in [`assets/voiceover/`](assets/voiceover/). Captions are burned into the footage and also ship as [assets/tanod-demo.srt](assets/tanod-demo.srt). Honesty badges mark Live and 3x footage. Two deliberate deviations: scene 10 shows a clean-chain verify (the tamper catch is proven in the test suite), and scene 11 shows the live briefing page (the 60-second briefing video is still in production). A YouTube upload for the submission form follows once the owner's channel is available.
 
 ## Summary
 
@@ -193,14 +193,14 @@ S1 to S5 come from the AvePoint track starter kit (provided to participants by t
 - **Studio** (`/#/studio`): Brightledger normal day 10/10 allowed; rogue day 13 actions: 5 allowed, 3 held, 5 blocked. Lumen Studio runs the same shapes on the kit's S1–S9.
 - **Live QwenWork worker agents:** three real QwenWork agents (marketing, sales, finance) read the workspace through the API and submitted 9 of their own drafts to the live gate. The gate blocked the client-list upload and the wrong-client proposal from actual agent output. The run also exposed one false block (a correct invoice email whose due date shared a line with another date); the fact checker was fixed and the full suite re-run green the same day.
 - **Scheduled QwenWork tasks:** a daily 6pm owner-briefing task and a 30-minute queue-watch alert task, both enabled against the live API (delivery lands in the owner's IM once a channel is connected; until then, as task results).
-- **Demo film:** [assets/tanod-demo.mp4](assets/tanod-demo.mp4), 2:24 of real app footage captured through the browser, narrated and captioned. Poster exports and the social card in [`docs/brand/`](docs/brand/).
+- **Demo film:** [assets/tanod-demo.mp4](assets/tanod-demo.mp4), 3:00 of real app footage captured through the browser, Kokoro narration, burned-in captions, scene stems in [`assets/voiceover/`](assets/voiceover/). Poster exports and the social card in [`docs/brand/`](docs/brand/).
 
 **Honest limits:**
 
 - The engine is fully deterministic (patterns + rule table). There is no LLM inside the deployed runtime; owner lines and repair options are template-generated from evidence. Classification accuracy is the measured 27/27, not a claim about arbitrary files.
 - Execution is simulated: emails go to a test outbox (labelled in the UI), deletes are soft (restorable 30 days). No real email, payments or uploads.
 - The demo film's agents are the labelled Studio script; the live-agent run above is separate evidence. The 60-second briefing video is still in production.
-- Narration is macOS text-to-speech; captions ship as a sidecar `.srt` because the local ffmpeg build has no subtitle burn-in filter.
+- Narration is Kokoro-82M (af_heart) generated locally. Captions are burned into the footage as a browser-rendered bar and also ship as a sidecar `.srt`, because the local ffmpeg build has no subtitle burn-in filter.
 
 **Planned for the submission:** 60-second briefing video, YouTube upload of the demo film, final poster print check.
 
@@ -215,7 +215,7 @@ Spec-driven: a short [constitution](docs/constitution.md), one spec per feature 
 - **Innovation:** an oversight gate that doesn't just say no: it rewinds the agent and offers safe options that have passed the same checks. Every number an agent states is traced to its source.
 - **Feasibility & Viability:** works for any small business, not just the demo one: upload files, write rules in plain English, point agents at the gateway. Zero runtime dependencies; one Node file plus a database.
 - **Use of QwenWork:** the app is built and deployed in QwenWork (dynamic runtime + provisioned database); three real QwenWork worker agents submitted drafts through the live gate; two QwenWork scheduled tasks run the daily briefing and queue watch; QwenWork skills drove the build, the design review and the publish workflow; the demo film was produced by a QwenWork-driven capture pipeline.
-- **Demo Presentation:** the narrated film above, the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
+- **Demo Presentation:** the narrated 3:00 film above, the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
 
 ## Run it locally
 
@@ -233,8 +233,9 @@ For persistent storage set `SUPABASE_URL` and `SUPABASE_ANON_KEY` (any Supabase-
 README.md                  this file
 DEMO-WALKTHROUGH.md        how to run and present the live demo
 app/                       the live application (Node.js, no dependencies)
-assets/tanod-demo.mp4      narrated demo film (real app footage)
+assets/tanod-demo.mp4      narrated 3:00 demo film (real app footage)
 assets/tanod-demo.srt      captions
+assets/voiceover/          Kokoro narration stems, timing.json, full track
 docs/brand/                logo SVGs + PNGs, social card, A1 poster PDF
 docs/screenshots/          every page, captured from the live build
 docs/constitution.md       project rules, ratified before building

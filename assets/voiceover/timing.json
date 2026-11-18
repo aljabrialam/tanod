@@ -1,0 +1,117 @@
+{
+  "voice": "Kokoro-82M af_heart",
+  "speed": 0.95,
+  "sample_rate": 24000,
+  "channels": 1,
+  "source": "TANOD_HANDOFF.md section 12e script table, lines verbatim",
+  "scenes": [
+    {
+      "file": "01_title.wav",
+      "scene": "01_title",
+      "start_s": 0,
+      "slot_s": 12,
+      "text": "Your agents draft. Tanod decides what leaves.",
+      "duration_s": 3.5,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "02_problem.wav",
+      "scene": "02_problem",
+      "start_s": 12,
+      "slot_s": 18,
+      "text": "Mei runs a design studio alone. Five AI agents do her admin. She has no technical background and no compliance team. Nobody checks what the agents actually do.",
+      "duration_s": 11.725,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "03_how.wav",
+      "scene": "03_how",
+      "start_s": 30,
+      "slot_s": 20,
+      "text": "Tanod sits between her agents and the outside world. Agents can't send, pay or delete. Only Tanod can. Every action gets one of three answers: allow, hold for Mei, or block.",
+      "duration_s": 12.825,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "04_setup.wav",
+      "scene": "04_setup",
+      "start_s": 50,
+      "slot_s": 15,
+      "text": "Any owner can set it up in minutes. Upload your files, Tanod labels what's sensitive. Write rules the way you talk.",
+      "duration_s": 7.775,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "05_catch1.wav",
+      "scene": "05_catch1",
+      "start_s": 65,
+      "slot_s": 20,
+      "text": "The finance agent wrote to a client with three numbers that aren't in any file. Tanod blocks it, rewinds the agent to its last safe step, and offers a corrected reply. One tap.",
+      "duration_s": 12.275,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "06_catch2.wav",
+      "scene": "06_catch2",
+      "start_s": 85,
+      "slot_s": 15,
+      "text": "An offer below Mei's floor. Some rules can't be approved away in a hurry. This is one.",
+      "duration_s": 5.925,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "07_catch3.wav",
+      "scene": "07_catch3",
+      "start_s": 100,
+      "slot_s": 15,
+      "text": "One client's private fundraising plans, about to go to another client. Stopped.",
+      "duration_s": 5.725,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "08_catch4.wav",
+      "scene": "08_catch4",
+      "start_s": 115,
+      "slot_s": 13,
+      "text": "An email hid instructions to forward all invoices. The agent fell for it. Tanod didn't, because the instruction came from outside.",
+      "duration_s": 9.2,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "09_clean.wav",
+      "scene": "09_clean",
+      "start_s": 128,
+      "slot_s": 10,
+      "text": "Ordinary work goes straight through.",
+      "duration_s": 2.45,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "10_rewind.wav",
+      "scene": "10_rewind",
+      "start_s": 138,
+      "slot_s": 12,
+      "text": "Made a mistake? Rewind to before it. And every action is in a history that can't be quietly edited.",
+      "duration_s": 6.925,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "11_briefing.wav",
+      "scene": "11_briefing",
+      "start_s": 150,
+      "slot_s": 18,
+      "text": "Every evening, Mei gets this. What her AI did today, in words she understands.",
+      "duration_s": 5.45,
+      "over_slot_s": 0.0
+    },
+    {
+      "file": "12_close.wav",
+      "scene": "12_close",
+      "start_s": 168,
+      "slot_s": 12,
+      "text": "Nine scenarios caught. Zero false blocks. Tanod. Your agents draft. Tanod decides what leaves.",
+      "duration_s": 7.125,
+      "over_slot_s": 0.0
+    }
+  ]
+}
