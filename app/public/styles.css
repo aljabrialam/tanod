@@ -396,6 +396,21 @@ details.file-details summary { cursor: pointer; color: var(--accent); font-size:
   .poster h1 { font-size: 72px; }
 }
 
+/* ---------------------------------------------------------------- studio */
+
+.roster { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s2); margin-bottom: var(--s3); }
+.roster-card { padding: var(--s2); }
+.roster-name { margin: 0 0 4px; font-weight: 600; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; }
+
+.studio-progress { margin-top: var(--s3); }
+.studio-progress-top { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+.studio-bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.studio-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 300ms var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-bar-fill { transition: none; }
+}
+
 /* ---------------------------------------------------------------- a11y & motion */
 
 a:focus-visible, summary:focus-visible, button:focus-visible {

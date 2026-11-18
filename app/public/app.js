@@ -823,10 +823,116 @@ async function renderPoster() {
         h('p', {}, 'Tanod: a village watchman (Filipino) \u00b7 ', location.origin))));
 }
 
+// ---------------------------------------------------------------- studio
+
+let studioPoll = null;
+function stopStudioPoll() { if (studioPoll) { clearInterval(studioPoll); studioPoll = null; } }
+
+async function renderStudio() {
+  stopStudioPoll();
+  skeleton('Studio');
+  const [{ agents }, status] = await Promise.all([
+    api(`${API()}/studio/agents`), api(`${API()}/studio/status`),
+  ]);
+
+  const bannerBox = h('div', {});
+  const progressBox = h('div', {});
+  const feedBox = h('div', { class: 'feed' });
+  const controlsBox = h('div', { class: 'queue-actions' });
+
+  const runBtn = (mode, label, cls) => h('button', { class: `button ${cls}`, type: 'button', onclick: async () => {
+    try {
+      await post(`${API()}/studio/run`, { mode });
+      bannerBox.replaceChildren();
+      poll();
+    } catch (err) { bannerBox.replaceChildren(banner('bad', err.message)); }
+  } }, label);
+
+  const resetBtn = h('button', { class: 'button button-secondary', type: 'button', onclick: async () => {
+    if (!window.confirm('Reset the Lumen Studio workspace? This clears actions, history, the queue and restores all files. Rules return to the template.')) return;
+    try { await post(`${API()}/reset`); bannerBox.replaceChildren(banner('ok', 'Workspace reset. Ready for a fresh run.')); paint({ status: 'idle', events: [], step: 0, total: 0 }); }
+    catch (err) { bannerBox.replaceChildren(banner('bad', err.message)); }
+  } }, 'Reset workspace');
+
+  const paint = (s) => {
+    const running = s.status === 'running';
+    controlsBox.replaceChildren(
+      running ? h('span', { class: 'stat-note' }, 'Agents are working\u2026') : null,
+      runBtn('normal', 'Run a normal day', 'button-allow'),
+      runBtn('rogue', 'Run the rogue day', ''),
+      resetBtn);
+    for (const b of controlsBox.querySelectorAll('button')) if (running && b !== resetBtn) b.disabled = true;
+    if (running) resetBtn.disabled = true;
+
+    if (s.total) {
+      const pct = Math.round((s.step / s.total) * 100);
+      progressBox.replaceChildren(
+        h('div', { class: 'studio-progress' },
+          h('div', { class: 'studio-progress-top' },
+            h('span', {}, running ? `Step ${Math.min(s.step + 1, s.total)} of ${s.total}` : `${s.total} steps \u00b7 ${s.mode === 'rogue' ? 'rogue day' : 'normal day'}`),
+            h('span', { class: 'honesty' }, 'Simulated agents \u00b7 real gate')),
+          h('div', { class: 'studio-bar' }, h('div', { class: 'studio-bar-fill', style: `width: ${running ? pct : 100}%` })),
+          s.current ? h('p', { class: 'stat-note' }, s.current) : null));
+    } else progressBox.replaceChildren();
+
+    if (s.summary && s.status === 'done') {
+      const t = s.summary;
+      progressBox.append(h('div', { class: 'card enter', style: 'margin-top: 16px' },
+        h('p', { class: 'decision-reason' }, `The day is done: ${t.total} actions \u2014 ${t.allow} allowed, ${t.hold} waiting for you, ${t.block} blocked.`),
+        h('div', { class: 'queue-actions' },
+          h('a', { class: 'button button-small', href: '#/today' }, 'Open Today'),
+          h('a', { class: 'button button-secondary button-small', href: '#/briefing' }, 'Read the briefing'),
+          h('a', { class: 'button button-secondary button-small', href: '#/history' }, 'Verify the history'))));
+    }
+    if (s.status === 'error') bannerBox.replaceChildren(banner('bad', `The run stopped: ${s.summary?.error || 'unknown error'}`));
+
+    feedBox.replaceChildren(...[...s.events].reverse().map((e) => e.error
+      ? h('div', { class: 'card error-card enter' }, h('p', { class: 'field-label' }, `${e.agent} \u00b7 step ${e.n}`), h('p', { class: 'result-reason' }, e.error))
+      : h('div', { class: 'card enter' },
+          h('div', { class: 'decision-top' },
+            badgeFor(e.outcome),
+            h('span', { class: 'decision-title' }, `${e.agent} \u00b7 ${actionLabel(e.action_type)}`),
+            h('span', { class: 'decision-time' }, `step ${e.n}`)),
+          h('p', { class: 'stat-note' }, e.story),
+          h('p', { class: 'decision-reason' }, e.owner_line),
+          h('div', {}, ruleChips(e.rules),
+            e.options ? h('span', { class: 'chip' }, `${e.options} safe option${e.options === 1 ? '' : 's'}`) : null),
+          h('a', { class: 'decision-link', href: `#/action/${e.ref}` }, 'See the evidence'))));
+    if (!s.events.length) feedBox.replaceChildren(h('div', { class: 'card empty-state' }, 'Press a run button. Every action below goes through the real gate and lands in History \u2014 open Today in another tab to watch decisions arrive live.'));
+  };
+
+  const poll = async () => {
+    stopStudioPoll();
+    const tick = async () => {
+      try {
+        const s = await api(`${API()}/studio/status`);
+        paint(s);
+        if (s.status !== 'running') stopStudioPoll();
+      } catch { stopStudioPoll(); }
+    };
+    await tick();
+    studioPoll = setInterval(tick, 1000);
+  };
+
+  main.replaceChildren(
+    pageHead('Studio', 'Watch a day at Lumen Studio. The agents are simulated; every decision is made by the real gate and written to the real history.'),
+    bannerBox,
+    h('div', { class: 'roster' }, agents.map((a) => h('div', { class: 'card roster-card' },
+      h('p', { class: 'roster-name' }, a.name), h('p', { class: 'stat-note' }, a.role)))),
+    h('div', { class: 'section-head' }, h('h2', {}, 'Run the day')),
+    controlsBox,
+    progressBox,
+    h('div', { class: 'section-head' }, h('h2', {}, 'Live feed')),
+    feedBox);
+
+  if (status.status === 'running' || status.events.length) poll();
+}
+
 // ---------------------------------------------------------------- router
 
 const ROUTES = {
   today: { title: 'Today', render: renderToday },
+  studio: { title: 'Studio', render: renderStudio },
   history: { title: 'History', render: renderHistory },
   outbox: { title: 'Outbox', render: renderOutbox },
   files: { title: 'Files', render: renderFiles },
@@ -846,6 +952,7 @@ function currentRoute() {
 }
 
 async function render() {
+  stopStudioPoll();
   const route = currentRoute();
   for (const link of document.querySelectorAll('.nav a')) {
     link.classList.toggle('active', link.dataset.nav === route.name);

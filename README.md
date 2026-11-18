@@ -117,6 +117,7 @@ S1 to S5 come from the AvePoint track starter kit (provided to participants by t
 - Rewind: checkpoint before every action; a released delete was rewound and the file restored; irreversible effects listed with correction drafts.
 - Safe options: every BLOCK/HOLD in S2–S8 offers gate-checked options (corrected facts, within the rules, ask first); merging one executes it.
 - Daily briefing page (Needs you / Stopped / You should know / Routine), policy page with plain-English rule compilation, onboarding for a new workspace, test runner page, poster page.
+- **Studio** (`/#/studio`): a live day at Lumen Studio. Simulated worker agents (labelled as such) submit every action to the real gate: a normal day (10/10 allowed) and a rogue day (13 actions: 5 allowed, 3 held, 5 blocked — the S1–S9 behaviours). Decisions land in the real history and queue; open Today in a second tab to watch them arrive.
 
 **Honest limits:**
 

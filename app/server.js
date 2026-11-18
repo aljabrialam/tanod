@@ -15,6 +15,7 @@ import { verifyChain, appendLedger } from './lib/ledger.js';
 import { mergeOption } from './lib/repair.js';
 import { buildBriefing } from './lib/briefing.js';
 import { runSuite, latestRun } from './lib/tests.js';
+import { startRun, studioStatus, AGENTS } from './lib/studio.js';
 import { compileRule } from './lib/policy.js';
 
 const PORT = Number(process.env.PORT) || 8081;
@@ -282,6 +283,19 @@ async function handleApi(req, res, url) {
   if (rest === '/parties/extract' && method === 'POST') {
     const files = await db.select('files', { workspace_id: wsId }, { limit: 2000 });
     return send(res, 200, { candidates: extractParties(files) });
+  }
+
+  // ---- studio: simulated agents, real gate ----
+  if (rest === '/studio/agents' && method === 'GET') {
+    return send(res, 200, { agents: AGENTS });
+  }
+  if (rest === '/studio/run' && method === 'POST') {
+    if (wsId !== DEMO_WORKSPACE.id) return sendError(res, 400, 'The studio demo runs in the Lumen Studio workspace.');
+    const json = await readJson(req);
+    return send(res, 202, startRun(wsId, json.mode || 'rogue', { speedMs: json.speed_ms }));
+  }
+  if (rest === '/studio/status' && method === 'GET') {
+    return send(res, 200, studioStatus(wsId));
   }
 
   // ---- briefing, tests, health ----
