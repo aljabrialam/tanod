@@ -2,8 +2,6 @@
   <img src="docs/brand/logo-horizontal.png" alt="Tanod: a gate arch with a check passing through it, on a lime tile" width="420">
 </p>
 
-<h1 align="center">Tanod</h1>
-
 <p align="center"><strong>Your agents draft. Tanod decides what leaves.</strong></p>
 
 <p align="center">
