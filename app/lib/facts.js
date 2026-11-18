@@ -86,39 +86,50 @@ export function checkClaims(body, files) {
     if (c.kind === 'reference') {
       supported = lines.find((l) => l.line.includes(c.value));
     } else if (c.kind === 'percent') {
-      const pctLines = lines.filter((l) => /(\d+(?:\.\d+)?)\s*%/.test(l.line));
-      supported = pctLines.find((l) => num(l.line.match(/(\d+(?:\.\d+)?)\s*%/)[1]) === c.value);
+      const pctRe = /(\d+(?:\.\d+)?)\s*%/g;
+      const pctsIn = (line) => [...line.matchAll(pctRe)].map((m) => ({ v: num(m[1]), t: m[0].trim() }));
+      const pctLines = lines.filter((l) => pctsIn(l.line).length);
+      supported = pctLines.find((l) => pctsIn(l.line).some((p) => p.v === c.value));
       if (!supported) {
         const best = pctLines
           .map((l) => ({ l, s: overlapScore(c.context, l.line) }))
           .filter((x) => x.s > 0)
           .sort((a, b) => b.s - a.s)[0];
-        if (best) contradicted = { found: best.l.line.match(/(\d+(?:\.\d+)?)\s*%/)[0], ...best.l };
+        if (best) {
+          const other = pctsIn(best.l.line).find((p) => p.v !== c.value);
+          if (other) contradicted = { found: other.t, ...best.l };
+        }
       }
     } else if (c.kind === 'duration') {
-      const durLines = lines.filter((l) => /\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+days?\b/i.test(l.line));
-      const valOf = (l) => {
-        const m = l.line.match(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+days?\b/i);
-        return WORD_NUM[m[1].toLowerCase()] ?? num(m[1]);
-      };
-      supported = durLines.find((l) => valOf(l) === c.value);
+      const durRe = /\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+days?\b/gi;
+      const dursIn = (line) => [...line.matchAll(durRe)].map((m) => ({ v: WORD_NUM[m[1].toLowerCase()] ?? num(m[1]), t: m[0] }));
+      const durLines = lines.filter((l) => dursIn(l.line).length);
+      supported = durLines.find((l) => dursIn(l.line).some((d) => d.v === c.value));
       if (!supported) {
         const best = durLines
           .map((l) => ({ l, s: overlapScore(c.context, l.line) }))
           .filter((x) => x.s > 0)
           .sort((a, b) => b.s - a.s)[0];
-        if (best) contradicted = { found: best.l.line.match(/\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+days?\b/i)[0], ...best.l };
+        if (best) {
+          const other = dursIn(best.l.line).find((d) => d.v !== c.value);
+          if (other) contradicted = { found: other.t, ...best.l };
+        }
       }
     } else if (c.kind === 'date') {
-      const dateLines = lines.filter((l) => new RegExp(`\\b\\d{1,2}\\s+(${MONTHS})`, 'i').test(l.line));
+      const dateRe = new RegExp(`\\b(\\d{1,2})\\s+(${MONTHS})[a-z]*`, 'gi');
+      const datesIn = (line) => [...line.matchAll(dateRe)].map((m) => `${m[1]} ${m[2]}`);
       const norm = (s) => s.toLowerCase().replace(/\s+/g, ' ').slice(0, 6);
-      supported = dateLines.find((l) => norm(l.line.match(new RegExp(`\\b\\d{1,2}\\s+(${MONTHS})[a-z]*`, 'i'))[0]) === norm(c.value));
+      const dateLines = lines.filter((l) => datesIn(l.line).length);
+      supported = dateLines.find((l) => datesIn(l.line).some((d) => norm(d) === norm(c.value)));
       if (!supported) {
         const best = dateLines
           .map((l) => ({ l, s: overlapScore(c.context, l.line) }))
           .filter((x) => x.s > 0)
           .sort((a, b) => b.s - a.s)[0];
-        if (best) contradicted = { found: best.l.line.match(new RegExp(`\\b\\d{1,2}\\s+(${MONTHS})[a-z]*`, 'i'))[0], ...best.l };
+        if (best) {
+          const other = datesIn(best.l.line).find((d) => norm(d) !== norm(c.value));
+          if (other) contradicted = { found: other, ...best.l };
+        }
       }
     } else if (c.kind === 'money') {
       const moneyRe = /(?:SGD\s*)?(\d{1,3}(?:,\d{3})+|\d{3,})(?:\.\d+)?/g;
@@ -136,11 +147,16 @@ export function checkClaims(body, files) {
         }
       }
     } else if (c.kind === 'count') {
-      const re = new RegExp(`\\b(\\d+)\\s+${c.unit}`, 'i');
-      const countLines = lines.filter((l) => re.test(l.line));
-      supported = countLines.find((l) => num(l.line.match(re)[1]) === c.value);
+      const re = new RegExp(`\\b(\\d+)\\s+${c.unit}`, 'gi');
+      const countsIn = (line) => [...line.matchAll(re)].map((m) => ({ v: num(m[1]), t: m[0] }));
+      const countLines = lines.filter((l) => countsIn(l.line).length);
+      supported = countLines.find((l) => countsIn(l.line).some((x) => x.v === c.value));
       if (!supported && countLines.length) {
-        contradicted = { found: countLines[0].line.match(re)[0], ...countLines[0] };
+        const best = countLines
+          .map((l) => ({ l, s: overlapScore(c.context, l.line) }))
+          .sort((a, b) => b.s - a.s)[0];
+        const other = countsIn(best.l.line).find((x) => x.v !== c.value);
+        if (other) contradicted = { found: other.t, ...best.l };
       }
     }
 
