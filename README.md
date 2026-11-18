@@ -106,11 +106,25 @@ S1 to S5 come from the AvePoint track starter kit (provided to participants by t
 
 ## What's real, and what isn't
 
-**Working:** *(updated as features land)*
+**Working (measured 18 Nov 2026 on the built-in test runner):**
 
-- Nothing yet. Build starts 18 Nov 2026.
+- Live app: gateway (Outbox page + `POST /api/workspaces/{id}/actions`), deployed on QwenWork with a persistent database.
+- Data classifier: **27/27** starter-kit files labelled correctly from content alone (`sensitivity:` headers ignored), including all four known traps.
+- Decision engine: **9/9** scenarios pass on decision, rules and evidence (**27/27** checks; kit S1–S5: **15/15**). Wrong-client check, prompt-injection check, fact check (every figure traced to a file line), scope check, 19-rule policy table, owner floors.
+- Clean set: **0 false blocks on 21 ordinary actions** (0 holds).
+- Tamper-evident history: SHA-256 hash chain; Verify passes on a clean chain and detects a hand-edited entry.
+- Approval queue: release/reject with re-check against current files, 24-hour expiry, override rate and median time-to-decide, rubber-stamp warning.
+- Rewind: checkpoint before every action; a released delete was rewound and the file restored; irreversible effects listed with correction drafts.
+- Safe options: every BLOCK/HOLD in S2–S8 offers gate-checked options (corrected facts, within the rules, ask first); merging one executes it.
+- Daily briefing page (Needs you / Stopped / You should know / Routine), policy page with plain-English rule compilation, onboarding for a new workspace, test runner page, poster page.
 
-**Planned for the submission:** gateway, classifier, wrong-client check, fact check, scope check, rules, tamper-evident history, approval queue, rewind and safe options, daily briefing page and video, scenario test runner.
+**Honest limits:**
+
+- The engine is fully deterministic (patterns + rule table). There is no LLM inside the deployed runtime; owner lines and repair options are template-generated from evidence. Classification accuracy is the measured 27/27, not a claim about arbitrary files.
+- Execution is simulated: emails go to a test outbox (labelled in the UI), deletes are soft (restorable 30 days). No real email, payments or uploads.
+- The 60-second narrated briefing video and the 3-minute demo video are production steps, not app features; the briefing page is live.
+
+**Planned for the submission:** live QwenWork worker agents through the outbox, briefing video, demo video, poster exports.
 
 **Roadmap after the hackathon:** connectors for common email and storage services, team workspaces, real payment integrations.
 
@@ -132,6 +146,7 @@ Spec-driven: a short [constitution](docs/constitution.md), one spec per feature 
 ```
 README.md                  this file
 DEMO-WALKTHROUGH.md        how to run and present the live demo
+app/                       the live application (Node.js, no dependencies)
 docs/constitution.md       project rules, ratified before building
 docs/gates.md              G1 / G2 / G3 with evidence
 docs/capability-map.md     QwenWork behaviour observed and relied on

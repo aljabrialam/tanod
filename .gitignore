@@ -12,3 +12,11 @@ dist/
 # Starter kit from the organisers (not redistributed)
 AgentsWatchingAgents_StarterKit/
 *.zip
+
+# Kit-derived demo data bundled inside the app for the deployed runtime.
+# The organisers' starter kit is not redistributed; populate locally (see app/README.md).
+app/data/seed/
+app/data/rules/policy.json
+app/data/rules/taxonomy.json
+app/data/rules/scenarios.json
+app/data/rules/ground_truth_labels.json

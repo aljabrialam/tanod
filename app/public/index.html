@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tanod — Lumen Studio</title>
+  <meta name="description" content="Your agents draft. Tanod decides what leaves.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3A8A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#/today" aria-label="Tanod home">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span class="brand-name">Tanod</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        <a href="#/today" data-nav="today">Today</a>
+        <a href="#/history" data-nav="history">History</a>
+        <a href="#/outbox" data-nav="outbox">Outbox</a>
+        <a href="#/files" data-nav="files">Files</a>
+        <a href="#/policy" data-nav="policy">Policy</a>
+        <a href="#/briefing" data-nav="briefing">Briefing</a>
+        <a href="#/tests" data-nav="tests">Tests</a>
+        <a href="#/setup" data-nav="setup">Set up</a>
+      </nav>
+      <label class="ws-switch">
+        <span class="visually-hidden">Workspace</span>
+        <select id="ws-select" aria-label="Workspace"></select>
+      </label>
+    </div>
+  </header>
+
+  <main id="main" class="main" aria-live="polite"></main>
+
+  <footer class="footer">
+    <p>Your agents draft. Tanod decides what leaves. <span class="footer-sep">·</span> <a href="#/poster">Poster</a> <span class="footer-sep">·</span> Tanod: a village watchman (Filipino)</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
