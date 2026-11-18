@@ -8,7 +8,8 @@
 
 <p align="center">
   <a href="https://ayea3dar.qwenwork.page/"><strong>Open the live app</strong></a> ·
-  <a href="assets/tanod-demo.mp4"><strong>Watch the 2:58 demo</strong></a> ·
+  <a href="https://youtu.be/XmI43zjAeo0"><strong>Watch on YouTube</strong></a> ·
+  <a href="assets/tanod-demo.mp4"><strong>Demo file (2:58)</strong></a> ·
   <a href="https://ayea3dar.qwenwork.page/#/studio"><strong>Run a rogue day yourself</strong></a> ·
   <a href="#whats-real-and-what-is-simulated"><strong>What's real</strong></a>
 </p>
@@ -40,11 +41,13 @@ Two more things make it safe to live with:
 
 ## Watch the demo (2:58)
 
-[![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](assets/tanod-demo.mp4)
+[![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](https://youtu.be/XmI43zjAeo0)
+
+**Watch on YouTube: https://youtu.be/XmI43zjAeo0** (unlisted, captions available). Offline copy: [assets/tanod-demo.mp4](assets/tanod-demo.mp4).
 
 The film shows one day at a solo business, twice: ordinary work flowing through untouched, and a "rogue day" where agents misbehave nine ways and Tanod catches each one live. It then opens the hood: one real action shown end to end (input, checks, output), and the guardrail logic explained with animations. Captions are on screen; a caption file ships alongside ([assets/tanod-demo.srt](assets/tanod-demo.srt)).
 
-Honesty notes: the Studio agents are a labelled simulation, but every decision they trigger is made by the real gate. The rewind scene shows a clean history verify; the tamper catch is proven in the test suite. The briefing scene shows the live briefing page; the 60-second briefing video is still in production.
+Honesty notes: the Studio agents are a labelled simulation, but every decision they trigger is made by the real gate. The rewind scene shows a clean history verify; the tamper catch is proven in the test suite. The briefing scene shows the live briefing page; the 60-second briefing video is still in production. The film is on YouTube at https://youtu.be/XmI43zjAeo0 (unlisted) and in this repo as an offline fallback.
 
 ### The demo, scene by scene
 
@@ -115,7 +118,7 @@ Open the [live app](https://ayea3dar.qwenwork.page/). The Today page explains wh
 
 **Measured on the built-in runner (18 Nov 2026):** 9/9 rogue scenarios caught, 27/27 checks passed (decision + rules + evidence), 27/27 benchmark files labelled correctly from content alone, and 0 false blocks plus 0 holds on 21 ordinary clean actions.
 
-**Still in production:** the 60-second briefing video and the YouTube upload of the demo film.
+**Still in production:** the 60-second briefing video. The demo film is uploaded to YouTube (https://youtu.be/XmI43zjAeo0, unlisted).
 
 ### The nine tests
 
