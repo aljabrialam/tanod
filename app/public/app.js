@@ -170,8 +170,14 @@ async function renderToday() {
           h('a', { class: 'decision-link', href: `#/action/${a.id}` }, 'See the evidence'))))
     : h('div', { class: 'card empty-state' }, 'Nothing yet. When your agents submit an action from the ', h('a', { href: '#/outbox' }, 'Outbox'), ', decisions appear here.');
 
+  const explainer = h('div', { class: 'card enter', style: 'margin-bottom: 24px; background: var(--teal); border-color: transparent; color: var(--teal-deep)' },
+    h('h2', { style: 'margin: 0 0 8px; font: var(--h2)' }, 'What is Tanod?'),
+    h('p', { style: 'margin: 0' }, 'Your AI agents draft emails, quotes, uploads and deletions. Tanod is the checkpoint every one of those actions must pass before it happens. It checks each action against your files and your rules, then gives one of three answers: allowed, waiting for you, or blocked, each with a one-line reason in plain words. Nothing reaches the outside world without a decision.'),
+    h('p', { style: 'margin: 10px 0 0' }, 'New here? ', h('a', { href: '#/studio', style: 'color: inherit; font-weight: 600' }, 'Run a day in the Studio'), ' and watch the decisions arrive, or read the ', h('a', { href: '#/briefing', style: 'color: inherit; font-weight: 600' }, 'daily briefing'), '.'));
+
   setKids(main, 
     pageHead('Today', 'What your agents did, and what Tanod decided.'),
+    explainer,
     stats, healthRow,
     h('div', { class: 'section-head' }, h('h2', {}, 'Waiting for you'), h('span', { class: 'link' }, `${pending.length} item${pending.length === 1 ? '' : 's'}`)),
     queue,

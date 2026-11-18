@@ -13,7 +13,20 @@
   <a href="#whats-real-and-what-isnt"><strong>What's real</strong></a>
 </p>
 
-Tanod is a safety gate for one-person companies run by AI agents. Every action an agent wants to take (send an email, quote a price, pay a supplier, delete a file, upload data) passes through Tanod first. Tanod checks it, allows it, holds it for the owner, or blocks it, explains why in plain words, and keeps a history that can't be quietly edited. When it stops something, it rewinds the agent to its last safe step and offers the owner safe options instead.
+## What Tanod does, in plain words
+
+You run a business alone. You let AI agents do the admin: reply to clients, quote prices, pay suppliers, tidy files. That is fast, and it is risky: an agent can send a client's private file to the wrong person, invent a number, or delete an unpaid invoice, and you will not know until someone complains.
+
+Tanod sits between your agents and the outside world. The agents keep drafting, but they cannot send, pay, upload or delete anything by themselves. Every action goes to Tanod first, and Tanod:
+
+1. **Logs it.** Which agent, which task, which files it read, what it wants to do.
+2. **Checks it.** How sensitive the data is, whether the recipient is the right client, whether every number in the draft appears in your files, whether the action breaks your rules (like a price floor).
+3. **Decides it.** One of three answers, each with a one-line reason you can read in one glance: **Allowed** (it goes ahead), **Waiting for you** (held until you approve or reject), **Blocked** (it never happens).
+4. **Remembers it.** Every decision goes into a history that cannot be quietly edited, and into a daily briefing written for you, not for an engineer.
+
+When Tanod blocks something, it does not just say no: it offers safe alternatives that already passed the same checks (for example, the corrected reply), and you can run one with a single tap. If you approved something by mistake, you can rewind to before it.
+
+**A concrete example.** Your finance agent drafts a reply about a late-filing surcharge: "15%, six days late, total 3,450." Your contract says a fixed SGD 600, and only if the delay was your fault. Your call notes say the client was four days late. Your invoice says 3,000. Tanod blocks the draft, shows each number next to the file line that contradicts it, and offers the corrected reply. Nothing wrong was sent.
 
 *Tanod* is the Filipino word for a village watchman. The logo is the gate he stands at: an arch, with a check passing through it.
 
@@ -26,6 +39,23 @@ Entry for the **QwenWork x Hashmeta AI One-Person Company Hackathon** (Singapore
 [![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](assets/tanod-demo.mp4)
 
 **[assets/tanod-demo.mp4](assets/tanod-demo.mp4)** (2:07, 1920x1080, 30 fps). Cut to the twelve-scene script in the project's production guide, re-timed so each scene runs its narration plus a two-second breath and its on-screen activity plus one second: no dead air, and under the 3:00 cap. Every frame is the live app or a brand card, filmed through the browser while real clicks drive it. Narration is Kokoro-82M (voice af_heart, speed 0.95), one consistent calm voice, lines verbatim from the script; per-scene stems and the normalized full track are in [`assets/voiceover/`](assets/voiceover/) and remain music-free. A soft instrumental bed (QwenWork music generation, verified vocal-free) sits 20 dB under the voice, looped seamlessly and faded at both ends. Captions are burned into the footage and also ship as [assets/tanod-demo.srt](assets/tanod-demo.srt), timed to this cut. Honesty badges mark Live and 3x footage. Two deliberate deviations: scene 10 shows a clean-chain verify (the tamper catch is proven in the test suite), and scene 11 shows the live briefing page (the 60-second briefing video is still in production). A YouTube upload for the submission form follows once the owner's channel is available.
+
+## What the demo shows, scene by scene
+
+1. **Title (0:00).** What Tanod is, in one sentence: a checkpoint every agent action must pass.
+2. **Problem (0:05).** A solo owner, five agents, nobody checking what they did.
+3. **How it works (0:19).** The gate: agents submit, checks run, three answers, then history and briefing.
+4. **Set-up (0:37, sped up 3x).** Any business: upload files, labels appear, a rule typed in plain English becomes a rule card.
+5. **Catch 1 (0:47).** Made-up numbers blocked; each number shown against its source; the corrected reply merged in one tap.
+6. **Catch 2 (1:05).** An offer below the owner's price floor blocked; no approve button exists for it.
+7. **Catch 3 (1:13).** One client's private proposal about to go to another client; stopped.
+8. **Catch 4 (1:21).** Hidden instructions inside an email; the agent obeys, Tanod refuses.
+9. **Clean work (1:32).** An ordinary payment reminder goes straight through. Tanod is not a brake on normal work.
+10. **Rewind + verify (1:37).** A delete released by mistake is rewound and the file returns; the history chain verifies.
+11. **Briefing (1:47).** The owner's daily page: needs you, stopped, should know, routine.
+12. **Results (1:57).** Measured numbers and a QR code to the live app.
+
+The Studio agents are a labelled simulation; every decision they trigger is made by the real gate and written to the real history. Three real QwenWork agents also submitted their own drafts through the same gate (see [What's real](#whats-real-and-what-isnt)).
 
 ## Summary
 

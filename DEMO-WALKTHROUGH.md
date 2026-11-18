@@ -2,54 +2,51 @@
 
 **Your agents draft. Tanod decides what leaves.**
 
-> Draft. Timings and evidence are filled in at G3.
+This is the presenter script for the live demo and the 2:07 film. Every step below is something the app really does; nothing is staged.
+
+## The one-minute pitch (say this first)
+
+"Imagine you run a business alone, and you let AI agents do your admin: replying to clients, quoting prices, paying suppliers, deleting old files. Fast, but nobody checks what they actually did. Tanod is the checkpoint. The agents keep drafting, but nothing they draft can leave until Tanod checks it against your files and your rules and gives one of three answers: allowed, waiting for you, or blocked, each with a one-line reason. When it blocks something, it offers a safe corrected version you can send with one tap. And every decision lands in a history that cannot be quietly edited, plus a daily briefing in plain words."
 
 ## Before you present
 
-1. Reset the demo workspace (Brightledger) to its starting state. The Lumen Studio benchmark workspace stays available for the Tests page.
-2. Open three tabs: Tanod **Today** screen, the **History** screen, and the QwenWork workspace with the worker agents ready.
-3. Run the scenario suite once; confirm all results match the README.
-4. Have the recorded backup video open in a fourth tab.
+1. Open the live app: https://ayea3dar.qwenwork.page/
+2. On Today, press **Reset workspace** (Studio page) so the day starts clean. The explainer card on Today tells a cold audience what Tanod is.
+3. Open three tabs: **Today**, **Studio**, **History**.
+4. Run the test suite once (Tests page) so the measured numbers are on screen: 9/9 scenarios, 27/27 checks, 27/27 labels, 0 false blocks.
+5. Keep the film (assets/tanod-demo.mp4) open as a fallback if the network fails.
 
-## The steps
+## The live demo, step by step
 
 ```mermaid
 flowchart TB
-  S1["1. Sara's bookkeeping practice: seven agents, no compliance team"]
-  S2["2. Finance agent replies to a client dispute"]
-  S3["3. Tanod blocks it: three numbers match no file"]
-  S4["4. Tanod rewinds and offers a corrected reply; owner taps once"]
-  S5["5. Sales agent offers below the price floor: blocked, can't be approved"]
-  S6["6. Account agent sends one client's proposal to another: blocked"]
-  S7["7. An email hides instructions to forward invoices: blocked"]
-  S8["8. A normal reminder goes straight through"]
-  S9["9. Owner approves a delete by mistake, then rewinds it"]
-  S10["10. History verified; one edited entry is caught"]
-  S11["11. The 60-second daily briefing"]
-  S1 --> S2 --> S3 --> S4 --> S5 --> S6 --> S7 --> S8 --> S9 --> S10 --> S11
+  A["1. Studio: run the rogue day"] --> B["2. Today: watch decisions arrive"]
+  B --> C["3. Open a blocked action: see the evidence"]
+  C --> D["4. Run a safe option: corrected reply goes out"]
+  D --> E["5. Queue: release a held delete, then rewind it"]
+  E --> F["6. History: verify the chain"]
+  F --> G["7. Briefing: the owner's day in plain words"]
 ```
 
-## Step by step
+1. **Studio, "Run the rogue day".** Say: "These agents are a labelled simulation, but the gate is real. Watch what it stops." Thirteen actions arrive over about twenty seconds: a client-list upload, a below-floor offer, made-up numbers, a wrong-client proposal, hidden email instructions, two unpaid-invoice deletes, a scope-creep read, plus ordinary work.
+2. **Today.** Say: "Five allowed, three waiting for me, five blocked. I only have to look at the three." Point at the pastel tiles and the queue.
+3. **Open the blocked finance reply.** Say: "It wrote 15%, six days, 3,450. My contract says 600 fixed and only if the delay was mine; my call notes say the client was four days late; my invoice says 3,000. Tanod shows each number next to the line that contradicts it." This is the blame view: every claim traced to a file.
+4. **Run the safe option.** Say: "It doesn't just say no. The corrected reply already passed the same checks. One tap, and only the correct version goes out."
+5. **Queue: release a held delete, then rewind.** Say: "Deletes wait for me. If I release one by mistake, I rewind to before it and the file comes back. Irreversible effects are listed with correction drafts."
+6. **History, Verify chain.** Say: "Every action is hash-chained. If anyone edits a record by hand, the chain breaks and Tanod tells you." (The tamper catch is proven in the test suite; the live verify shows a clean chain.)
+7. **Briefing.** Say: "At the end of the day I get this: what needs me, what was stopped, what I should know, and the routine work. One read, no jargon."
 
-| Step | Audience sees | You say | What's really happening |
-|---|---|---|---|
-| 2-3 | Draft reply, then a red "Blocked" card with three highlighted numbers | "Every number is checked against the files the agent read." | Claims are extracted from the draft and matched to lines in the contract, invoice and email |
-| 4 | "Send corrected reply" option | "Tanod doesn't just say no." | The run is rewound to the save point before the draft; candidates are generated and re-checked by the gate; only passing ones are shown |
-| 5 | "Not allowed" badge, no Approve button | "Some rules can't be approved away in a hurry." | A "never" rule fired; the decision is computed by code, not by the model |
-| 9 | Invoices reappear after "Rewind to before this" | "Made a mistake? Go back." | The deletion was soft; the rewind restores the snapshot and is itself logged |
-| 10 | "Verify" turns red at one entry | "The history can't be quietly edited." | Each entry's hash includes the previous one; changing a row breaks the chain from that point |
+Close with the measured numbers and the live URL. If asked "what if the classifier is wrong": the owner can correct any label on the Files page, and deterministic rules, not the classifier alone, make the final call; NEVER rules cannot be approved away.
 
-## If something fails
+## What is simulated, and what is real
 
-| Risk | Fallback | What to say |
-|---|---|---|
-| A live agent is slow or misbehaves differently | Replay mode (labelled "Replay") | "This is the same run, replayed so we stay on time." |
-| Network issue | Recorded backup video | "Here's the same flow recorded this morning." |
+- Simulated: the Studio worker agents (labelled on screen), and execution (test outbox, soft deletes restorable 30 days).
+- Real: every decision, the evidence, the approval queue, the hash-chained history, rewind, safe options, the briefing, the test suite, and the API any agent can call. Three real QwenWork agents submitted their own drafts through the same gate on 18 Nov.
 
-## Questions judges ask
+## Five likely judge questions
 
-1. **What if the classifier is wrong?** Decisions come from code and rules, and "never" rules can't be overridden. Classifier accuracy is measured against labelled files and shown in the README.
-2. **Doesn't this create approval fatigue?** Only risky actions reach the owner, each is raised once, and Tanod tracks how quickly the owner approves so it can warn about rubber-stamping.
-3. **Does it work for other businesses?** Yes: upload files, write rules in plain English, point agents at the gateway.
-4. **What if the agent ignores Tanod?** Agents don't hold send, pay or delete rights. Only Tanod does.
-5. **How is this different from a content filter?** It checks facts against sources, catches wrong recipients, watches what agents read, and offers safe alternatives, with a history you can verify.
+1. **"What if the AI classifier is wrong?"** Labels are content-based and owner-correctable; the final decision is deterministic rules over evidence, and measured accuracy is 27/27 on the benchmark, not a claim about all files.
+2. **"Can the owner override a block?"** Holds yes, with a re-check against current files. NEVER rules (below floor, regulated data out, wrong client, untrusted instructions) cannot be approved away.
+3. **"Is this just a logging tool?"** No: logging is one of four jobs. The gate decides before anything happens, offers gate-checked repairs, and rewinds mistakes.
+4. **"Does it slow normal work?"** Measured: 0 false blocks and 0 holds on 21 ordinary actions. Clean work goes straight through.
+5. **"Why should a solo owner trust it?"** Every decision shows its evidence in plain words, the history is tamper-evident, and the daily briefing plus queue health metrics (override rate, rubber-stamp warning) keep the human in the loop honestly.
