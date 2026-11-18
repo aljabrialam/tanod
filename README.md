@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://ayea3dar.qwenwork.page/"><strong>Open the live app</strong></a> ·
-  <a href="assets/tanod-demo.mp4"><strong>Watch the 2:51 demo</strong></a> ·
+  <a href="assets/tanod-demo.mp4"><strong>Watch the 2:58 demo</strong></a> ·
   <a href="https://ayea3dar.qwenwork.page/#/studio"><strong>Run a rogue day yourself</strong></a> ·
   <a href="#whats-real-and-what-is-simulated"><strong>What's real</strong></a>
 </p>
@@ -38,7 +38,7 @@ Two more things make it safe to live with:
 
 **A concrete example.** Your finance agent drafts a reply about a late-filing surcharge: "15%, six days late, total 3,450." Your contract says a fixed SGD 600, and only if the delay was your fault. Your call notes say the client was four days late. Your invoice says 3,000. Tanod blocks the draft, shows each number next to the file line that contradicts it, and offers the corrected reply. Nothing wrong was sent.
 
-## Watch the demo (2:51)
+## Watch the demo (2:58)
 
 [![Tanod demo: the rogue day, caught live](docs/screenshots/studio.png)](assets/tanod-demo.mp4)
 
@@ -51,17 +51,17 @@ Honesty notes: the Studio agents are a labelled simulation, but every decision t
 1. **0:00 Title.** What Tanod is, in one sentence: a checkpoint every agent action must pass.
 2. **0:05 Problem.** A solo owner, five agents, nobody checking what they did.
 3. **0:19 How it works.** The gate: agents submit, checks run, three answers, then history and briefing.
-4. **0:37 Set-up (sped up 3x).** Any business: upload files, labels appear, a rule typed in plain English becomes a rule card.
-5. **0:47 Catch 1.** Made-up numbers blocked; each number shown against its source; the corrected reply merged in one tap.
-6. **1:05 Catch 2.** An offer below the owner's price floor blocked; no approve button exists for it.
-7. **1:13 Catch 3.** One client's private proposal about to go to another client; stopped.
-8. **1:21 Catch 4.** Hidden instructions inside an email; the agent obeys, Tanod refuses.
-9. **1:32 Clean work.** An ordinary payment reminder goes straight through. Tanod is not a brake on normal work.
-10. **1:37 Rewind + verify.** A delete released by mistake is rewound and the file returns; the history chain verifies.
-11. **1:47 Briefing.** The owner's daily page: needs you, stopped, should know, routine.
-12. **1:57 Under the hood (animated).** One real recorded action end to end: the agent's JSON input and the files it read; the checks with their real results; the blocked output with evidence and the gate-checked corrected reply.
-13. **2:21 Guardrail logic (animated).** The rule table, strictest answer wins, NEVER cannot be approved away, deterministic code decides, every claim carries evidence, history and checkpoints keep it auditable and reversible.
-14. **2:41 Results.** Measured numbers and a QR code to the live app.
+4. **0:36 Set-up (sped up 3x).** Any business: upload files, labels appear, a rule typed in plain English becomes a rule card.
+5. **0:46 Catch 1.** Made-up numbers blocked; each number shown against its source; the corrected reply merged in one tap.
+6. **1:04 Catch 2.** An offer below the owner's price floor blocked; no approve button exists for it.
+7. **1:12 Catch 3.** One client's private proposal about to go to another client; stopped.
+8. **1:19 Catch 4.** Hidden instructions inside an email; the agent obeys, Tanod refuses.
+9. **1:30 Clean work.** An ordinary payment reminder goes straight through. Tanod is not a brake on normal work.
+10. **1:34 Rewind + verify.** A delete released by mistake is rewound and the file returns; the history chain verifies.
+11. **1:45 Briefing.** The owner's daily page: needs you, stopped, should know, routine.
+12. **1:55 Under the hood (animated).** One real recorded action end to end: the agent's JSON input and the files it read; the checks with their real results; the blocked output with evidence and the gate-checked corrected reply. The complete board stays on screen for sixteen seconds so it can be read.
+13. **2:25 Guardrail logic (animated).** The rule table, strictest answer wins, NEVER cannot be approved away, deterministic code decides, every claim carries evidence, history and checkpoints keep it auditable and reversible. The full slide holds for eight seconds.
+14. **2:49 Results.** Measured numbers and a QR code to the live app.
 
 ## Try it yourself
 
@@ -187,7 +187,7 @@ If you know git, the same ideas map neatly:
 - **Innovation:** a gate that does not just say no. It rewinds the agent and offers safe options that passed the same checks, and traces every number an agent states to its source.
 - **Feasibility and viability:** works for any small business, not just the demo one. Upload files, write rules in plain English, point agents at the gateway. One Node file plus a database, zero runtime dependencies.
 - **Use of QwenWork:** the app is built and deployed on QwenWork (dynamic runtime plus provisioned database); three real QwenWork worker agents submitted drafts through the live gate; two QwenWork scheduled tasks run the daily briefing and the queue watch; QwenWork skills drove the build, the design review and the publish workflow; the demo film was produced by a QwenWork-driven capture pipeline.
-- **Demo and presentation:** the narrated 2:51 film with animated deep-dives, the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
+- **Demo and presentation:** the narrated 2:58 film with animated deep-dives, the live Studio rogue day, four catches, one rewind, and the owner's morning briefing.
 
 ## Run it locally
 
@@ -207,7 +207,7 @@ For persistent storage, set `SUPABASE_URL` and `SUPABASE_ANON_KEY` (any Supabase
 
 **Design.** Redesigned against the owner's pastel dashboard reference: self-hosted Outfit variable typeface, pale cool canvas, white rounded cards, pastel decision tiles (lime allowed, peach waiting, pink blocked, blue totals), pill controls, hairline borders. Every page was screenshot-reviewed in headless Chrome before publishing; that loop caught and fixed real rendering bugs (SVG namespace, null text nodes, a fresh-Studio button bug).
 
-**Film production.** Live app footage captured through Chrome DevTools Protocol screencast while real clicks drive the app; animated explainer sheets for the architecture, the input-process-output deep-dive (generated from a real recorded action's JSON and evidence) and the guardrail logic. Narration: Kokoro-82M, voice af_heart, speed 0.95, 24 kHz mono; the twelve script lines verbatim from the production guide, two new lines for the deep-dives; stems and timing in [`assets/voiceover/`](assets/voiceover/), music-free. Captions burned into the footage as a browser-rendered bar (the local ffmpeg build has no subtitle filter) plus a sidecar `.srt`. Music: QwenWork music generation, verified vocal-free, looped with a crossfade, mixed at -36 LUFS, 20 dB under the -16 LUFS voice; final track loudness-normalised to -16 LUFS. 1920x1080, 30 fps, 2:51, under the 3:00 cap. QR close card generated locally.
+**Film production.** Live app footage captured through Chrome DevTools Protocol screencast while real clicks drive the app; animated explainer sheets for the architecture, the input-process-output deep-dive (generated from a real recorded action's JSON and evidence) and the guardrail logic. Narration: Kokoro-82M, voice af_heart, speed 0.95, 24 kHz mono; the twelve script lines verbatim from the production guide, two new lines for the deep-dives; stems and timing in [`assets/voiceover/`](assets/voiceover/), music-free. Captions burned into the footage as a browser-rendered bar (the local ffmpeg build has no subtitle filter) plus a sidecar `.srt`. Music: QwenWork music generation, verified vocal-free, looped with a crossfade, mixed at -36 LUFS, 20 dB under the -16 LUFS voice; final track loudness-normalised to -16 LUFS. 1920x1080, 30 fps, 2:58, under the 3:00 cap. QR close card generated locally.
 
 **Live-agent evidence.** On 18 Nov 2026, three real QwenWork agents (marketing, sales, finance) read the workspace through the API and submitted nine of their own drafts to the live gate. The gate blocked the client-list upload and the wrong-client proposal from actual agent output. The run also exposed one false block (a correct invoice email whose due date shared a line with another date); the fact checker was fixed and the full suite re-run green the same day.
 
@@ -217,7 +217,7 @@ For persistent storage, set `SUPABASE_URL` and `SUPABASE_ANON_KEY` (any Supabase
 README.md                  this file
 DEMO-WALKTHROUGH.md        presenter script: pitch, live steps, judge Q&A
 app/                       the live application (Node.js, no dependencies)
-assets/tanod-demo.mp4      narrated 2:51 demo film (real footage + animations)
+assets/tanod-demo.mp4      narrated 2:58 demo film (real footage + animations)
 assets/tanod-demo.srt      captions
 assets/voiceover/          Kokoro narration stems, timing.json, full track
 docs/brand/                logo SVGs + PNGs, social card, A1 poster PDF
