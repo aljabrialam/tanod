@@ -78,6 +78,6 @@ tanod, ai agents, ai governance, agent guardrails, ai oversight, human in the lo
 ## After upload
 
 1. DONE: video uploaded by the owner. URL: https://youtu.be/XmI43zjAeo0 (verified resolving with the demo title).
-2. Paste that URL into the event submission form on app.hashmeta.ai.
+2. Paste that URL into the official submission form: https://survey.alibabacloud.com/uone/sg/survey/nXEUDcuj-?utm_source=luma (the "Submit Demo Here" link on the Luma event page; verified resolving).
 3. DONE: README "Watch the demo" section links the YouTube URL (thumbnail links to it); the mp4 stays as the offline fallback.
 4. Keep the mp4 in the repo as the offline fallback for the live pitch.
