@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { db } from './lib/db.js';
 import {
-  ensureDemoWorkspace, createWorkspace, resetDemo, extractParties, partiesCtx, DEMO_WORKSPACE,
+  ensureDemoWorkspace, ensureBusinessWorkspace, createWorkspace, resetDemo, extractParties, partiesCtx, DEMO_WORKSPACE, BUSINESS_WORKSPACE,
 } from './lib/seed.js';
 import { classifyText, splitFrontmatter } from './lib/classify.js';
 import { decide, normalizeInput, resolveApproval, approvalHealth, rewind, ACTION_TYPES } from './lib/engine.js';
@@ -15,7 +15,7 @@ import { verifyChain, appendLedger } from './lib/ledger.js';
 import { mergeOption } from './lib/repair.js';
 import { buildBriefing } from './lib/briefing.js';
 import { runSuite, latestRun } from './lib/tests.js';
-import { startRun, studioStatus, AGENTS } from './lib/studio.js';
+import { startRun, studioStatus, studioSupported, AGENTS } from './lib/studio.js';
 import { compileRule } from './lib/policy.js';
 
 const PORT = Number(process.env.PORT) || 8081;
@@ -246,8 +246,8 @@ async function handleApi(req, res, url) {
     if (compiled.condition?.type === 'floor') {
       await db.upsert('floors', { workspace_id: wsId, party_name: compiled.condition.party, min_amount_sgd: compiled.condition.amount }, 'workspace_id,party_name');
     }
-    const tests = await runSuite(wsId, decide); // CI: re-run when rules change
-    return send(res, 201, { rule: row, preview: compiled.preview, tests: tests.totals });
+    const tests = wsId === DEMO_WORKSPACE.id ? await runSuite(wsId, decide) : null; // CI: re-run when rules change (benchmark workspace)
+    return send(res, 201, { rule: row, preview: compiled.preview, tests: tests?.totals || null });
   }
   if (seg[0] === 'rules' && seg[1] && method === 'PATCH') {
     const json = await readJson(req);
@@ -256,8 +256,8 @@ async function handleApi(req, res, url) {
     if (!Object.keys(patch).length) return sendError(res, 400, 'Nothing to change.');
     const rows = await db.update('rules', { workspace_id: wsId, rid: seg[1] }, patch);
     if (!rows.length) return sendError(res, 404, 'Rule not found.');
-    const tests = await runSuite(wsId, decide);
-    return send(res, 200, { rule: rows[0], tests: tests.totals });
+    const tests = wsId === DEMO_WORKSPACE.id ? await runSuite(wsId, decide) : null;
+    return send(res, 200, { rule: rows[0], tests: tests?.totals || null });
   }
   if (rest === '/floors' && method === 'POST') {
     const json = await readJson(req);
@@ -290,7 +290,7 @@ async function handleApi(req, res, url) {
     return send(res, 200, { agents: AGENTS });
   }
   if (rest === '/studio/run' && method === 'POST') {
-    if (wsId !== DEMO_WORKSPACE.id) return sendError(res, 400, 'The studio demo runs in the Lumen Studio workspace.');
+    if (!studioSupported(wsId)) return sendError(res, 400, 'The studio demo runs in the Brightledger or Lumen Studio workspace.');
     const json = await readJson(req);
     return send(res, 202, startRun(wsId, json.mode || 'rogue', { speedMs: json.speed_ms }));
   }
@@ -303,6 +303,7 @@ async function handleApi(req, res, url) {
     return send(res, 200, { date: url.searchParams.get('date') || new Date().toISOString().slice(0, 10), lines: await buildBriefing(wsId, url.searchParams.get('date')) });
   }
   if (rest === '/tests/run' && method === 'POST') {
+    if (wsId !== DEMO_WORKSPACE.id) return sendError(res, 400, 'The test suite runs against the Lumen Studio benchmark workspace.');
     return send(res, 200, await runSuite(wsId, decide));
   }
   if (rest === '/tests/latest' && method === 'GET') {
@@ -324,8 +325,8 @@ async function handleApi(req, res, url) {
     return send(res, 200, { sent: rows.filter((a) => a.executed && a.action_type === 'send_email') });
   }
   if (rest === '/reset' && method === 'POST') {
-    if (wsId !== DEMO_WORKSPACE.id) return sendError(res, 403, 'Only the demo workspace can be reset.');
-    await resetDemo();
+    if (wsId !== DEMO_WORKSPACE.id && wsId !== BUSINESS_WORKSPACE.id) return sendError(res, 403, 'Only the demo workspaces can be reset.');
+    await resetDemo(wsId);
     return send(res, 200, { ok: true });
   }
 
@@ -354,6 +355,7 @@ async function ensureReady() {
   if (!ready) {
     ready = (async () => {
       await ensureDemoWorkspace();
+      await ensureBusinessWorkspace();
       // backfill the chain for any spec-000 actions recorded before the ledger existed
       const head = await db.select('ledger', { workspace_id: DEMO_WORKSPACE.id }, { limit: 1 });
       if (!head.length) {
@@ -411,5 +413,5 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, HOST, () => {
   console.log(`[tanod] listening on http://${HOST}:${PORT}`);
   console.log(`[tanod] outbox: http://${HOST}:${PORT}/#/outbox`);
-  console.log(`[tanod] api:    POST http://${HOST}:${PORT}/api/workspaces/${DEMO_WORKSPACE.id}/actions`);
+  console.log(`[tanod] api:    POST http://${HOST}:${PORT}/api/workspaces/${BUSINESS_WORKSPACE.id}/actions`);
 });

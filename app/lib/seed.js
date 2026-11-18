@@ -1,6 +1,6 @@
-// Workspace seeding: Lumen Studio demo (28 files incl. the S8 inbox email),
-// parties, floors and the 19-rule policy template. Also creates fresh
-// workspaces for onboarding and resets the demo.
+// Workspace seeding: Brightledger (the product demo, original content) and
+// Lumen Studio (the organisers' benchmark, kept for the test suite), plus
+// fresh workspaces for onboarding and resets.
 
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
@@ -18,6 +18,20 @@ export const DEMO_WORKSPACE = {
   owner_name: 'Mei Tan',
   owner_email: 'mei@lumenstudio.example',
 };
+
+// The default demo business: original content, not derived from the kit.
+export const BUSINESS_WORKSPACE = {
+  id: 'brightledger',
+  name: 'Brightledger',
+  owner_name: 'Sara Lim',
+  owner_email: 'sara@brightledger.example',
+};
+
+const SEED_DIRS = {
+  [DEMO_WORKSPACE.id]: SEED_DIR,
+  [BUSINESS_WORKSPACE.id]: path.join(ROOT, 'data', 'seed-brightledger'),
+};
+const BUSINESS_FLOORS = { 'Clementi Cafe': 1500 };
 
 async function walk(dir, base = '') {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -65,7 +79,12 @@ export const DEMO_SUPPLIERS = [
   { kind: 'supplier', name: 'Jia Wen (freelance)', contact: 'Jia Wen', emails: ['jiawen@example'], domains: ['example'] },
 ];
 
-export async function seedRules(wsId) {
+export const BUSINESS_SUPPLIERS = [
+  { kind: 'supplier', name: 'CloudPay Software', contact: 'Billing', emails: ['billing@cloudpay.example'], domains: ['cloudpay.example'] },
+  { kind: 'supplier', name: 'PrintWorks SG', contact: 'Orders', emails: ['orders@printworks.example'], domains: ['printworks.example'] },
+];
+
+export async function seedRules(wsId, floorsOverride = null) {
   const existing = await db.select('rules', { workspace_id: wsId }, { limit: 1 });
   if (existing.length) return;
   const tpl = await policyTemplate();
@@ -75,7 +94,7 @@ export async function seedRules(wsId) {
     owner_words: r.condition, enabled: true, builtin: true, condition: null,
   }));
   await db.insert('rules', rows);
-  for (const [partyName, amount] of Object.entries(tpl.owner_floors || {})) {
+  for (const [partyName, amount] of Object.entries(floorsOverride || tpl.owner_floors || {})) {
     await db.upsert('floors', { workspace_id: wsId, party_name: partyName, min_amount_sgd: amount }, 'workspace_id,party_name');
   }
 }
@@ -93,10 +112,11 @@ export async function partiesCtx(wsId) {
 
 export async function seedDemoFiles(wsId, { force = false } = {}) {
   const ctx = await partiesCtx(wsId);
-  const rels = await walk(SEED_DIR);
+  const dir = SEED_DIRS[wsId] || SEED_DIR;
+  const rels = await walk(dir);
   let count = 0;
   for (const rel of rels) {
-    const content = (await readFile(path.join(SEED_DIR, rel), 'utf8'))
+    const content = (await readFile(path.join(dir, rel), 'utf8'))
       .replace(/^sensitivity:[^\n]*\n?/gm, '');
     const { meta } = splitFrontmatter(content);
     const { label, reasons } = classifyText(content, { ...ctx, path: rel, from: meta.from, to: meta.to });
@@ -140,6 +160,19 @@ export async function ensureDemoWorkspace() {
   }
 }
 
+export async function ensureBusinessWorkspace() {
+  await db.upsert('workspaces', { ...BUSINESS_WORKSPACE }, 'id');
+  const wsId = BUSINESS_WORKSPACE.id;
+  const parties = await db.select('parties', { workspace_id: wsId }, { limit: 1 });
+  if (!parties.length) {
+    const csv = await readFile(path.join(SEED_DIRS[wsId], 'admin', 'client_list.csv'), 'utf8');
+    await db.insert('parties', parseClientCsv(csv).map((p) => ({ ...p, workspace_id: wsId })));
+    await db.insert('parties', BUSINESS_SUPPLIERS.map((p) => ({ ...p, workspace_id: wsId })));
+  }
+  await seedRules(wsId, BUSINESS_FLOORS);
+  await seedDemoFiles(wsId);
+}
+
 export async function createWorkspace({ name, owner_name, owner_email }) {
   const id = String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'workspace';
   const existing = await db.select('workspaces', { id }, { limit: 1 });
@@ -149,14 +182,13 @@ export async function createWorkspace({ name, owner_name, owner_email }) {
   return { id, name, owner_name, owner_email };
 }
 
-export async function resetDemo() {
-  const wsId = DEMO_WORKSPACE.id;
+export async function resetDemo(wsId = DEMO_WORKSPACE.id) {
   for (const table of ['actions', 'ledger', 'approvals', 'checkpoints', 'branches', 'briefings', 'test_runs']) {
     await db.remove(table, { workspace_id: wsId });
   }
   await db.remove('rules', { workspace_id: wsId });
   await db.remove('floors', { workspace_id: wsId });
-  await seedRules(wsId);
+  await seedRules(wsId, wsId === BUSINESS_WORKSPACE.id ? BUSINESS_FLOORS : null);
   await seedDemoFiles(wsId, { force: true });
 }
 

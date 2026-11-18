@@ -173,8 +173,9 @@ export async function decide(wsId, input, { dryRun = false, ownerApproved = fals
       evidence.push({ point: `The attachment belongs to ${wrongClient.contentClient.name}`, file: wrongClient.file.path });
       evidence.push({ point: `The recipient belongs to ${wrongClient.recipientClient.name}` });
       if (nonPublic) {
-        const line = String(wrongClient.file.content).split('\n').find((l) => /raising|fundraising/i.test(l));
-        evidence.push({ point: `It contains ${wrongClient.contentClient.name.split(' ')[0]}\u2019s non-public fundraising figures`, file: wrongClient.file.path, line: line?.trim() });
+        const acq = /acquisition/i.test(wrongClient.file.content);
+        const line = String(wrongClient.file.content).split('\n').find((l) => /raising|fundraising|acquisition/i.test(l));
+        evidence.push({ point: `It contains ${wrongClient.contentClient.name.split(' ')[0]}\u2019s non-public ${acq ? 'acquisition news' : 'fundraising figures'}`, file: wrongClient.file.path, line: line?.trim() });
       }
     }
   }
@@ -376,7 +377,9 @@ export async function decide(wsId, input, { dryRun = false, ownerApproved = fals
   } else if (wrongClient) {
     const cc = wrongClient.contentClient.name.split(' ')[0];
     const rc = wrongClient.recipientClient.name.split(' ')[0];
-    const news = /raising|fundraising/i.test(wrongClient.file.content) ? `, and it includes ${cc}\u2019s private fundraising news` : '';
+    const news = /acquisition/i.test(wrongClient.file.content)
+      ? `, and it includes ${cc}\u2019s private acquisition news`
+      : /raising|fundraising/i.test(wrongClient.file.content) ? `, and it includes ${cc}\u2019s private fundraising news` : '';
     ownerLine = `${who} tried to send ${cc}\u2019s ${/proposal/i.test(wrongClient.file.path) ? 'proposal' : 'document'} to ${firstName(wrongClient.recipientClient)} at ${rc}. Blocked: wrong client${news}. Nothing was sent.`;
   } else if (factFail) {
     const bad = factResults.filter((r) => r.status !== 'supported');

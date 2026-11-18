@@ -6,7 +6,7 @@
 
 ## Before you present
 
-1. Reset the demo workspace (Lumen Studio) to its starting state.
+1. Reset the demo workspace (Brightledger) to its starting state. The Lumen Studio benchmark workspace stays available for the Tests page.
 2. Open three tabs: Tanod **Today** screen, the **History** screen, and the QwenWork workspace with the worker agents ready.
 3. Run the scenario suite once; confirm all results match the README.
 4. Have the recorded backup video open in a fourth tab.
@@ -15,7 +15,7 @@
 
 ```mermaid
 flowchart TB
-  S1["1. Mei's studio: five agents, no compliance team"]
+  S1["1. Sara's bookkeeping practice: seven agents, no compliance team"]
   S2["2. Finance agent replies to a client dispute"]
   S3["3. Tanod blocks it: three numbers match no file"]
   S4["4. Tanod rewinds and offers a corrected reply; owner taps once"]

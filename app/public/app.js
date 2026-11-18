@@ -3,8 +3,10 @@
 
 const main = document.getElementById('main');
 const wsSelect = document.getElementById('ws-select');
-let WS = localStorage.getItem('tanod.ws') || 'lumen-studio';
+let WS = localStorage.getItem('tanod.ws') || 'brightledger';
 const API = () => `/api/workspaces/${encodeURIComponent(WS)}`;
+// The organisers' benchmark workspace: the test suite and poster numbers live here.
+const BENCH_API = '/api/workspaces/lumen-studio';
 
 // ---------------------------------------------------------------- helpers
 
@@ -114,8 +116,9 @@ function copyButton(getText) {
 async function loadWorkspaces() {
   try {
     const { workspaces } = await api('/api/workspaces');
-    if (!workspaces.some((w) => w.id === WS)) WS = workspaces[0]?.id || 'lumen-studio';
+    if (!workspaces.some((w) => w.id === WS)) WS = workspaces.find((w) => w.id === 'brightledger')?.id || workspaces[0]?.id || 'brightledger';
     wsSelect.replaceChildren(...workspaces.map((w) => h('option', { value: w.id, selected: w.id === WS }, w.name)));
+    document.title = `Tanod — ${workspaces.find((w) => w.id === WS)?.name || 'your agents draft, Tanod decides what leaves'}`;
   } catch { /* keep default */ }
 }
 wsSelect.addEventListener('change', () => {
@@ -613,12 +616,12 @@ async function renderBriefing() {
 
 async function renderTests() {
   skeleton('Tests');
-  const { results } = await api(`${API()}/tests/latest`);
+  const { results } = await api(`${BENCH_API}/tests/latest`);
   const bannerBox = h('div', {});
   const content = h('div', {});
   const runBtn = h('button', { class: 'button', type: 'button', onclick: async () => {
     runBtn.disabled = true; runBtn.textContent = 'Running\u2026';
-    try { const r = await post(`${API()}/tests/run`); renderResults(r); bannerBox.replaceChildren(banner('ok', 'Suite finished. Results below are measured, not estimated.')); }
+    try { const r = await post(`${BENCH_API}/tests/run`); renderResults(r); bannerBox.replaceChildren(banner('ok', 'Suite finished. Results below are measured, not estimated.')); }
     catch (err) { bannerBox.replaceChildren(banner('bad', err.message)); }
     runBtn.disabled = false; runBtn.textContent = 'Run the suite';
   } }, 'Run the suite');
@@ -654,7 +657,7 @@ async function renderTests() {
   };
   renderResults(results);
   main.replaceChildren(
-    pageHead('Tests', 'S1\u2013S9 plus a clean set of ordinary work, replayed through the real gate. The suite re-runs automatically whenever your rules change.'),
+    pageHead('Tests', 'S1\u2013S9 plus a clean set of ordinary work, replayed through the real gate on the Lumen Studio benchmark (the organisers\u2019 reference workspace). The suite re-runs automatically whenever benchmark rules change.'),
     h('div', { class: 'section-head' }, h('h2', {}, 'Test runner'), runBtn),
     bannerBox, content);
 }
@@ -681,8 +684,10 @@ async function renderSetup() {
     body.replaceChildren(
       h('div', { class: 'card', style: 'margin-bottom: 24px' },
         h('h2', { style: 'margin: 0 0 8px; font: var(--h2)' }, 'Try the demo first'),
-        h('p', { class: 'stat-note' }, 'Lumen Studio is a one-person design studio with 28 files, five agents and a full policy. Load it and explore.'),
-        h('button', { class: 'button', type: 'button', style: 'margin-top: 12px', onclick: () => { WS = 'lumen-studio'; localStorage.setItem('tanod.ws', WS); wsSelect.value = WS; location.hash = '#/today'; } }, 'Load the Lumen Studio demo')),
+        h('p', { class: 'stat-note' }, 'Brightledger is a one-person bookkeeping & payroll practice with 24 files, seven agents and a full policy. Load it and explore.'),
+        h('div', { class: 'queue-actions', style: 'margin-top: 12px' },
+          h('button', { class: 'button', type: 'button', onclick: () => { WS = 'brightledger'; localStorage.setItem('tanod.ws', WS); wsSelect.value = WS; location.hash = '#/today'; } }, 'Load the Brightledger demo'),
+          h('button', { class: 'button button-secondary', type: 'button', onclick: () => { WS = 'lumen-studio'; localStorage.setItem('tanod.ws', WS); wsSelect.value = WS; location.hash = '#/today'; } }, 'Load the Lumen Studio benchmark'))),
       h('div', { class: 'form' },
         h('div', { class: 'form-row' }, h('label', { for: 'ws-name' }, 'Business name'), name),
         h('div', { class: 'form-row' }, h('label', { for: 'ws-owner' }, 'Owner name'), owner),
@@ -783,7 +788,7 @@ async function renderSetup() {
 async function renderPoster() {
   skeleton('Poster');
   let r = null;
-  try { r = (await api(`${API()}/tests/latest`)).results; } catch { /* no run yet */ }
+  try { r = (await api(`${BENCH_API}/tests/latest`)).results; } catch { /* no run yet */ }
   const t = r?.totals;
   const proof = (num, lbl) => h('div', { class: 'card' }, h('div', { class: 'num' }, num), h('div', { class: 'lbl' }, lbl));
   main.replaceChildren(
@@ -813,11 +818,11 @@ async function renderPoster() {
       h('p', { class: 'stat-note' }, r ? `Measured on our own test set, ${dateLabel(r.ran_at)}.` : 'Run the test suite to fill in measured numbers.'),
       h('div', { class: 'poster-example' },
         h('div', { class: 'draft' }, h('p', { class: 'field-label' }, 'The agent\u2019s draft'),
-          h('p', {}, 'The rush surcharge of ', h('span', { class: 'bad-num' }, '25%'), ' applies. The deadline moved by ', h('span', { class: 'bad-num' }, '5 days'), '. Total stands at ', h('span', { class: 'bad-num' }, '5,250'), '.')),
+          h('p', {}, 'A ', h('span', { class: 'bad-num' }, '15%'), ' surcharge applies to any late filing. Filing was ', h('span', { class: 'bad-num' }, '6 days'), ' late. Total stands at ', h('span', { class: 'bad-num' }, '3,450'), '.')),
         h('div', { class: 'found' }, h('p', { class: 'field-label' }, 'What Tanod found'),
-          h('p', {}, h('span', { class: 'good-num' }, '20%'), ' \u2014 contract_ferro_logistics_2026.md'),
-          h('p', {}, h('span', { class: 'good-num' }, 'two days'), ' \u2014 the client\u2019s own email'),
-          h('p', {}, h('span', { class: 'good-num' }, '5,040'), ' \u2014 invoice 2026-036'))),
+          h('p', {}, h('span', { class: 'good-num' }, 'SGD 600, only if we caused the delay'), ' \u2014 the client contract'),
+          h('p', {}, h('span', { class: 'good-num' }, 'four days, and the client\u2019s own fault'), ' \u2014 the call notes'),
+          h('p', {}, h('span', { class: 'good-num' }, '3,000'), ' \u2014 invoice 2026-102'))),
       h('div', { class: 'poster-foot' },
         h('p', {}, 'Built on QwenWork \u00b7 Track: AvePoint, AI Governance, Security & Decision-Making'),
         h('p', {}, 'Tanod: a village watchman (Filipino) \u00b7 ', location.origin))));
@@ -849,7 +854,7 @@ async function renderStudio() {
   } }, label);
 
   const resetBtn = h('button', { class: 'button button-secondary', type: 'button', onclick: async () => {
-    if (!window.confirm('Reset the Lumen Studio workspace? This clears actions, history, the queue and restores all files. Rules return to the template.')) return;
+    if (!window.confirm('Reset this workspace? This clears actions, history, the queue and restores all files. Rules return to the template.')) return;
     try { await post(`${API()}/reset`); bannerBox.replaceChildren(banner('ok', 'Workspace reset. Ready for a fresh run.')); paint({ status: 'idle', events: [], step: 0, total: 0 }); }
     catch (err) { bannerBox.replaceChildren(banner('bad', err.message)); }
   } }, 'Reset workspace');
@@ -915,7 +920,7 @@ async function renderStudio() {
   };
 
   main.replaceChildren(
-    pageHead('Studio', 'Watch a day at Lumen Studio. The agents are simulated; every decision is made by the real gate and written to the real history.'),
+    pageHead('Studio', `Watch a day at ${wsSelect.selectedOptions[0]?.textContent || WS}. The agents are simulated; every decision is made by the real gate and written to the real history.`),
     bannerBox,
     h('div', { class: 'roster' }, agents.map((a) => h('div', { class: 'card roster-card' },
       h('p', { class: 'roster-name' }, a.name), h('p', { class: 'stat-note' }, a.role)))),
