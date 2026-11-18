@@ -936,6 +936,7 @@ async function renderStudio() {
     h('div', { class: 'section-head' }, h('h2', {}, 'Live feed')),
     feedBox);
 
+  paint(status);
   if (status.status === 'running' || status.events.length) poll();
 }
 

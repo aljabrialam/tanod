@@ -392,13 +392,15 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  if (url.pathname === '/fonts/outfit-latin.woff2' && (req.method === 'GET' || req.method === 'HEAD')) {
+  const brandMatch = url.pathname.match(/^\/(brand|fonts)\/([a-z0-9.-]+\.(svg|woff2))$/);
+  if (brandMatch && (req.method === 'GET' || req.method === 'HEAD')) {
     try {
-      const content = await readFile(path.join(PUBLIC_DIR, 'fonts', 'outfit-latin.woff2'));
+      const content = await readFile(path.join(PUBLIC_DIR, brandMatch[1], brandMatch[2]));
       res.writeHead(200, {
-        'Content-Type': 'font/woff2',
+        'Content-Type': brandMatch[3] === 'svg' ? 'image/svg+xml' : 'font/woff2',
         'Content-Length': content.length,
         'Cache-Control': 'public, max-age=604800',
+        'Access-Control-Allow-Origin': '*',
       });
       return res.end(req.method === 'HEAD' ? undefined : content);
     } catch {

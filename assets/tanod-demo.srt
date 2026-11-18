@@ -1,0 +1,124 @@
+1
+00:00:00,000 --> 00:00:05,128
+One person. Seven AI agents. No compliance team. When an agent emails
+
+2
+00:00:05,278 --> 00:00:10,406
+a client, quotes a price, or deletes a record, nobody checks. Tanod
+
+3
+00:00:10,556 --> 00:00:15,683
+is the check. Your agents draft. Tanod decides what leaves.
+
+4
+00:00:15,833 --> 00:00:22,033
+Watch a day at Brightledger, a one-person bookkeeping practice. The agents are
+
+5
+00:00:22,183 --> 00:00:28,383
+simulated, but every decision is made by the real gate. Here comes
+
+6
+00:00:28,533 --> 00:00:34,733
+the rogue day: a client list upload, an offer below the owner’s
+
+7
+00:00:34,883 --> 00:00:41,083
+floor, made-up numbers, a proposal sent to the wrong client, and an
+
+8
+00:00:41,233 --> 00:00:47,433
+email with hidden instructions. Tanod stops each one, in plain language.
+
+9
+00:00:47,583 --> 00:00:51,322
+Everything lands in Today. Risky deletes wait in your queue with the
+
+10
+00:00:51,472 --> 00:00:55,211
+evidence attached. You can release or reject. Tanod re-checks against your current
+
+11
+00:00:55,361 --> 00:00:59,100
+files before anything goes ahead.
+
+12
+00:00:59,250 --> 00:01:03,183
+Open any decision to see exactly why. Blocked drafts come with safe
+
+13
+00:01:03,333 --> 00:01:07,267
+options that already passed the same gate: corrected numbers, within your rules.
+
+14
+00:01:07,417 --> 00:01:11,350
+One tap runs the repair.
+
+15
+00:01:11,500 --> 00:01:16,058
+History is a hash-chained ledger. One tap verifies every entry. If anyone
+
+16
+00:01:16,208 --> 00:01:20,767
+edits a record by hand, the chain breaks and Tanod tells you.
+
+17
+00:01:20,917 --> 00:01:24,461
+Tanod labels every file from its content, and you can correct it.
+
+18
+00:01:24,611 --> 00:01:28,156
+Your policy is a plain-English rule table: set a floor, and no
+
+19
+00:01:28,306 --> 00:01:31,850
+agent can ever quote below it.
+
+20
+00:01:32,000 --> 00:01:36,156
+And Tanod is not just for this demo. Any business can set
+
+21
+00:01:36,306 --> 00:01:40,461
+up: name it, upload your files, confirm the labels, list your people,
+
+22
+00:01:40,611 --> 00:01:44,767
+write your rules, and point your agents at the gate.
+
+23
+00:01:44,917 --> 00:01:48,322
+At the end of the day, Tanod writes your briefing: what needs
+
+24
+00:01:48,472 --> 00:01:51,878
+you, what was stopped, what you should know, and the routine work.
+
+25
+00:01:52,028 --> 00:01:55,433
+One read, no jargon.
+
+26
+00:01:55,583 --> 00:02:00,183
+And the numbers are measured, not claimed. The built-in suite replays nine
+
+27
+00:02:00,333 --> 00:02:04,933
+rogue scenarios and a clean workday through the real gate: nine of
+
+28
+00:02:05,083 --> 00:02:09,683
+nine caught, twenty-seven of twenty-seven files labelled, zero false blocks.
+
+29
+00:02:09,833 --> 00:02:14,350
+Tanod. The oversight gate for one-person companies. Every action logged, every number
+
+30
+00:02:14,500 --> 00:02:19,017
+traced, every risky move stopped or held for you. Try it live,
+
+31
+00:02:19,167 --> 00:02:23,683
+and see the code on GitHub. Built on QwenWork.
+

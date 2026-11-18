@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-labelledby="t d">
+  <title id="t">Tanod mark, monochrome</title>
+  <desc id="d">A gate arch with a check passing through it.</desc>
+  <g fill="none" stroke="#14181D" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 35 V24 C13 17.9 17.9 13 24 13 C30.1 13 35 17.9 35 24 V35"/>
+    <path d="M18.5 25.5 L22.5 29.5 L30 20.5"/>
+  </g>
+</svg>
