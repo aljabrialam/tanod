@@ -392,6 +392,20 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  if (url.pathname === '/fonts/outfit-latin.woff2' && (req.method === 'GET' || req.method === 'HEAD')) {
+    try {
+      const content = await readFile(path.join(PUBLIC_DIR, 'fonts', 'outfit-latin.woff2'));
+      res.writeHead(200, {
+        'Content-Type': 'font/woff2',
+        'Content-Length': content.length,
+        'Cache-Control': 'public, max-age=604800',
+      });
+      return res.end(req.method === 'HEAD' ? undefined : content);
+    } catch {
+      return sendError(res, 404, 'Not found.');
+    }
+  }
+
   const staticRoute = STATIC_FILES.get(url.pathname);
   if (staticRoute && (req.method === 'GET' || req.method === 'HEAD')) {
     try {
