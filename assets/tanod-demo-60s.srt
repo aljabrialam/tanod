@@ -1,0 +1,28 @@
+1
+00:00:00,000 --> 00:00:03,500
+Your agents draft. Tanod decides what leaves.
+
+2
+00:00:04,000 --> 00:00:15,725
+Mei runs a design studio alone. Five AI agents do her admin. She has no technical background and no compliance team. Nobody checks what the agents actually do.
+
+3
+00:00:16,200 --> 00:00:28,475
+The finance agent wrote to a client with three numbers that aren't in any file. Tanod blocks it, rewinds the agent to its last safe step, and offers a corrected reply. One tap.
+
+4
+00:00:30,500 --> 00:00:32,950
+Ordinary work goes straight through.
+
+5
+00:00:33,900 --> 00:00:40,825
+Made a mistake? Rewind to before it. And every action is in a history that can't be quietly edited.
+
+6
+00:00:46,300 --> 00:00:51,750
+Every evening, Mei gets this. What her AI did today, in words she understands.
+
+7
+00:00:52,250 --> 00:00:59,375
+Nine scenarios caught. Zero false blocks. Tanod. Your agents draft. Tanod decides what leaves.
+

@@ -23,10 +23,10 @@
 
 <p align="center">
 <a href="https://youtu.be/XmI43zjAeo0"><img src="docs/screenshots/studio.png" alt="Tanod Studio: a rogue day at a solo business, every action decided by the real gate" width="100%"></a><br>
-<sub><b><a href="https://youtu.be/XmI43zjAeo0">Watch the demo on YouTube</a></b> (2:58, unlisted, captions): a normal day and a rogue day, four catches, a rewind, the briefing, then one real action shown input → process → output and the guardrail logic, animated.</sub>
+<sub><b><a href="https://youtu.be/XmI43zjAeo0">Watch the demo on YouTube</a></b> (2:58, unlisted, captions): a normal day and a rogue day, four catches, a rewind, the briefing, then one real action shown input → process → output and the guardrail logic, animated. Short on time? <b><a href="assets/tanod-demo-60s.mp4">Watch the 60-second cut</a></b> — the same real footage and narration, distilled to the pitch, the flagship catch with its one-tap repair, rewind + verify, and the briefing.</sub>
 </p>
 
-> **Status (18 Nov 2026): live at [ayea3dar.qwenwork.page](https://ayea3dar.qwenwork.page/).** Real gate, real history, real queue, real API (three QwenWork agents used it). Simulated, and labelled as such: the Studio worker agents and execution (test outbox, soft deletes restorable 30 days). Still in production: the 60-second briefing video.
+> **Status (18 Nov 2026): live at [ayea3dar.qwenwork.page](https://ayea3dar.qwenwork.page/).** Real gate, real history, real queue, real API (three QwenWork agents used it). Simulated, and labelled as such: the Studio worker agents and execution (test outbox, soft deletes restorable 30 days). A [60-second cut](assets/tanod-demo-60s.mp4) of the demo is available for quick review.
 
 **In a hurry? Start here:** [30-second version](#the-30-second-version) → [hackathon checklist](#hackathon-checklist) → [see it](#see-it) → [how the gate decides](#how-the-gate-decides) → [guardrails](#guardrails) → [try it in two minutes](#for-judges-try-it-in-two-minutes) → [results](#results) → [production plan](#from-hackathon-to-production) → [all documents](#documentation)
 
@@ -57,6 +57,7 @@
 |---|---|
 | Public, open-source repository | This repo, [MIT](LICENSE) |
 | Demo video, 3 minutes or less | [youtu.be/XmI43zjAeo0](https://youtu.be/XmI43zjAeo0): 2:58, 1080p30, chapters, captions |
+| 60-second version | [`assets/tanod-demo-60s.mp4`](assets/tanod-demo-60s.mp4): 1:00, 1080p30, same narration and captions, music bed |
 | New work built during the event | Built 17-18 Nov 2026; only open-source tooling and the organisers' benchmark kit pre-existed |
 | Meaningful use of QwenWork | App built and deployed on QwenWork Pages (dynamic runtime + provisioned database); three real QwenWork worker agents submitted drafts through the live gate; two QwenWork scheduled tasks (daily briefing, queue watch); QwenWork skills drove build, design review and publishing; the film was produced by a QwenWork-driven capture pipeline ([capability map](docs/capability-map.md)) |
 | Fits the track | AvePoint AI Governance, Security & Decision-Making: guardrails, tamper-evident audit, human approval, reversible actions |
@@ -147,7 +148,7 @@ Tanod is used where a mistake costs money, clients or compliance, by an owner wh
 
 | | |
 |---|---|
-| **Watch** | [The 2:58 demo](https://youtu.be/XmI43zjAeo0): rogue day, four catches, rewind, briefing, input→process→output, guardrail logic |
+| **Watch** | [The 2:58 demo](https://youtu.be/XmI43zjAeo0): rogue day, four catches, rewind, briefing, input→process→output, guardrail logic — or the [60-second cut](assets/tanod-demo-60s.mp4) if you only have a minute |
 | **Open the app** | [ayea3dar.qwenwork.page](https://ayea3dar.qwenwork.page/): Today explains itself in three sentences |
 | **Run a rogue day** | Studio → "Run the rogue day"; open Today in a second tab and watch 13 decisions arrive (5 allow, 3 hold, 5 block) |
 | **Run the tests** | Tests page → "Run the suite", or `curl -X POST https://ayea3dar.qwenwork.page/api/workspaces/lumen-studio/tests/run` |
@@ -220,7 +221,7 @@ Measured feasibility: sub-millisecond median decision compute; a solo business's
 | Path | What it is |
 |---|---|
 | [`app/`](app/) | The live application: Node.js, zero runtime dependencies |
-| [`assets/`](assets/) | Demo film, captions, Kokoro narration stems + timing |
+| [`assets/`](assets/) | Demo film (2:58) + 60-second cut, captions, Kokoro narration stems + timing |
 | [`scripts/`](scripts/) | Decision-latency benchmark |
 | [`docs/`](docs/) | Production plan, capability map, gates, brand, screens, YouTube pack |
 | [`specs/`](specs/) | Feature specifications and run sheet |
