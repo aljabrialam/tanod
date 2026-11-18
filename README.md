@@ -176,6 +176,19 @@ If you know git, the same ideas map neatly:
 | Revert | Rewind to before a mistake |
 | CI | The test suite re-runs whenever the rules change |
 
+## In production: infrastructure and feasibility
+
+Today's live build is one Node.js service plus a Postgres database on QwenWork, with execution simulated. The production design keeps the same engine and API and adds the standard pieces around it:
+
+- **Agents hold no keys to the outside world.** Real email, storage and payment connectors sit behind the gate and receive a payload only after an ALLOW decision or your release. A compromised or prompt-injected agent can draft, but cannot send.
+- **The decision path has no LLM.** Deterministic code decides, so answers are reproducible, explainable and fast, and a model outage cannot take the gate down. If the gate cannot reach its policy store, it fails closed (holds), never open.
+- **History is append-only and anchored.** Each ledger entry hashes the previous one; a daily root is written to immutable storage, so even a database administrator cannot rewrite history undetected.
+- **Stateless core, boring data plane.** The gateway autoscales horizontally; Postgres (row-level security per customer) and object storage hold all state. Approvals execute exactly once via idempotency keys and an outbox, and a hold approved hours later is re-checked against your files as they are now.
+
+**Feasibility, measured not asserted:** decision compute is 0.1 ms median and 1.5 ms at p95 over 96 benchmark decisions on a laptop; clean work sees 0 false blocks; all nine rogue behaviours are caught. A solo business produces tens of actions a day, so a single small database has orders of magnitude of headroom. Running cost for a small tenant pool is estimated at roughly $36-110/month (list-price ballpark, labelled as an estimate in the doc), with near-zero marginal cost per customer.
+
+The full design, with architecture and sequence diagrams, the security and compliance table, reliability targets, the cost model, the migration path from this demo and the risk register, is in [`docs/PRODUCTION.md`](docs/PRODUCTION.md).
+
 ## Who this is for
 
 - **Solo founders and freelancers** who let AI agents handle client email, invoices and admin.
@@ -225,6 +238,7 @@ docs/screenshots/          every page, captured from the live build
 docs/constitution.md       project rules, ratified before building
 docs/gates.md              G1 / G2 / G3 with evidence
 docs/capability-map.md     QwenWork behaviour observed and relied on
+docs/PRODUCTION.md         production infrastructure, security, feasibility, cost, migration
 specs/                     one specification per feature; RUN_SHEET.md gives the order
 rules/extra_scenarios.json our scenarios S6 to S9
 data/inbox/                our additional demo file for S8
