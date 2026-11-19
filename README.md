@@ -2,10 +2,15 @@
   <img src="docs/brand/logo-horizontal.png" alt="Tanod: a gate arch with a check passing through it, on a lime tile" width="420">
 </p>
 
+<h3 align="center">Start here</h3>
+
 <p align="center">
-<a href="https://youtu.be/XmI43zjAeo0"><img src="https://img.shields.io/badge/watch%20the%20demo-2%3A58-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the 2:58 demo on YouTube"></a>
-<a href="https://ayea3dar.qwenwork.page/"><img src="https://img.shields.io/badge/open%20the%20live%20app-ayea3dar.qwenwork.page-0866FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Open the live app"></a>
+<a href="https://youtu.be/XmI43zjAeo0"><img src="https://img.shields.io/badge/%E2%96%B6%20Watch%20the%20demo%20(2:58)-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Click to watch the 2:58 demo on YouTube"></a>
+&nbsp;
+<a href="https://ayea3dar.qwenwork.page/"><img src="https://img.shields.io/badge/%E2%86%97%20Open%20the%20live%20app-Tanod-0866FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Click to open the live app"></a>
 </p>
+
+<p align="center"><sub>Both buttons are clickable. Prefer text links: <b><a href="https://youtu.be/XmI43zjAeo0">Watch the 2:58 demo</a></b> &nbsp;&middot;&nbsp; <b><a href="https://ayea3dar.qwenwork.page/">Open the live app</a></b> &nbsp;&middot;&nbsp; <b><a href="assets/tanod-demo-60s.mp4">60-second cut</a></b></sub></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/status-live-12805C?style=flat-square" alt="Status: live">
@@ -182,6 +187,14 @@ All numbers from the built-in runner and local benchmarks, 18 Nov 2026. Re-run a
 
 **Colours:** lime `#CBF083` allowed, peach `#FFBFB3` waiting, pink `#F7B9D2` blocked, blue `#BBDDF5` totals, on a pale cool canvas `#EDF2F6` with ink `#14181D`. **Type:** Outfit (SIL OFL), self-hosted. Assets and exports: [`docs/brand/`](docs/brand/).
 
+## Poster
+
+A one-screen summary for the wall or the slide deck. The measured numbers on it (9/9, 27/27, 0/21, SHA-256) come from the built-in test suite.
+
+<a href="docs/brand/tanod-poster-1920x1080.png"><img src="docs/brand/tanod-poster-1920x1080.png" alt="Tanod 1920 by 1080 landscape poster: headline, four feature cards, the gate flow, measured proof tiles, and the Tanjong surcharge example" width="100%"></a>
+
+<p align="center"><sub><b><a href="docs/brand/tanod-poster-1920x1080.png">Download the 1920&times;1080 poster (PNG)</a></b> &nbsp;&middot;&nbsp; <b><a href="docs/brand/tanod-poster-A1.pdf">A1 print poster (PDF)</a></b> &nbsp;&middot;&nbsp; <b><a href="docs/brand/tanod-social-1080x1350.png">social card 1080&times;1350 (PNG)</a></b> &nbsp;&middot;&nbsp; live in the app: <b><a href="https://ayea3dar.qwenwork.page/#/poster">open the poster page</a></b></sub></p>
+
 ## From hackathon to production
 
 | Step | What |
@@ -211,7 +224,7 @@ Measured feasibility: sub-millisecond median decision compute; a solo business's
 | [docs/gates.md](docs/gates.md) | G1 / G2 / G3 gates with evidence (git tags) |
 | [docs/constitution.md](docs/constitution.md) | Project rules, ratified before building |
 | [docs/YOUTUBE.md](docs/YOUTUBE.md) | YouTube upload pack: title, description, chapters, tags, settings, thumbnail |
-| [docs/brand/](docs/brand/) | Logo SVGs/PNGs, social card, A1 poster PDF |
+| [docs/brand/](docs/brand/) | Logo SVGs/PNGs, social card, A1 poster PDF, 1920&times;1080 poster PNG |
 | [docs/screenshots/](docs/screenshots/) | Every page, captured from the live build |
 | [specs/](specs/) | One specification per feature; RUN_SHEET.md gives the build order |
 | [app/README.md](app/README.md) | Run locally, layout, restoring the benchmark kit data |
