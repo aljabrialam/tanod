@@ -3,6 +3,11 @@
 </p>
 
 <p align="center">
+<a href="https://youtu.be/XmI43zjAeo0"><img src="https://img.shields.io/badge/watch%20the%20demo-2%3A58-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the 2:58 demo on YouTube"></a>
+<a href="https://ayea3dar.qwenwork.page/"><img src="https://img.shields.io/badge/open%20the%20live%20app-ayea3dar.qwenwork.page-0866FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Open the live app"></a>
+</p>
+
+<p align="center">
 <img src="https://img.shields.io/badge/status-live-12805C?style=flat-square" alt="Status: live">
 <img src="https://img.shields.io/badge/QwenWork%20x%20Hashmeta%20OPC%20Hackathon-2026%20%C2%B7%20AvePoint%20track-2B47C9?style=flat-square" alt="QwenWork x Hashmeta One-Person Company Hackathon 2026, AvePoint track">
 <img src="https://img.shields.io/badge/scenarios%20caught-9%2F9-12805C?style=flat-square" alt="Rogue scenarios caught: 9 of 9">
@@ -10,11 +15,6 @@
 <img src="https://img.shields.io/badge/false%20blocks-0%2F21-12805C?style=flat-square" alt="False blocks on clean work: 0 of 21">
 <img src="https://img.shields.io/badge/runtime%20dependencies-0-12805C?style=flat-square" alt="Zero runtime dependencies">
 <img src="https://img.shields.io/badge/license-MIT-2B47C9?style=flat-square" alt="MIT">
-</p>
-
-<p align="center">
-<a href="https://youtu.be/XmI43zjAeo0"><img src="https://img.shields.io/badge/watch%20the%20demo-2%3A58-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the 2:58 demo on YouTube"></a>
-<a href="https://ayea3dar.qwenwork.page/"><img src="https://img.shields.io/badge/open%20the%20live%20app-ayea3dar.qwenwork.page-0866FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Open the live app"></a>
 </p>
 
 <h3 align="center">Your agents draft. Tanod decides what leaves.</h3>
